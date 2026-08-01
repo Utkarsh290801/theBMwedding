@@ -1,0 +1,89 @@
+/* Toast */
+
+.toast-message{
+
+position:fixed;
+
+right:30px;
+
+bottom:30px;
+
+background:#7c5cff;
+
+color:white;
+
+padding:14px 24px;
+
+border-radius:12px;
+
+opacity:0;
+
+transform:translateY(30px);
+
+transition:.3s;
+
+z-index:9999;
+
+box-shadow:0 12px 30px rgba(0,0,0,.15);
+
+}
+
+.toast-message.show{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+.toast-message.error{
+
+background:#ff4d4f;
+
+}
+
+.toast-message.success{
+
+background:#22c55e;
+
+}
+
+/* Common Buttons */
+
+.btn-primary{
+
+background:linear-gradient(135deg,#7c5cff,#ff6ea8);
+
+border:none;
+
+border-radius:30px;
+
+padding:12px 24px;
+
+font-weight:600;
+
+}
+
+/* Empty State */
+
+.empty-state{
+
+text-align:center;
+
+padding:70px 20px;
+
+color:#888;
+
+}
+
+.empty-state i{
+
+font-size:70px;
+
+margin-bottom:15px;
+
+display:block;
+
+color:#7c5cff;
+
+}

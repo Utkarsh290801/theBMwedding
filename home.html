@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The BM Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #20233a;
+        --muted: #72758a;
+        --lilac: #eeeaff;
+        --lavender: #8372d8;
+        --pink: #ff7f9b;
+        --peach: #ffb88e;
+        --cream: #fffdf9;
+        --line: #e9e6f1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .wrap {
+        width: min(1120px, calc(100% - 40px));
+        margin: auto;
+      }
+      nav {
+        height: 82px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 25px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .logo span {
+        color: var(--pink);
+      }
+      .navlinks {
+        display: flex;
+        gap: 27px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .navlinks a:hover {
+        color: var(--lavender);
+      }
+      .pill {
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 99px;
+        padding: 13px 20px;
+        font: 600 14px "DM Sans";
+        cursor: pointer;
+        min-height: 44px;
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          115deg,
+          #f1ecff 0%,
+          #fff5ec 62%,
+          #ffedf1 100%
+        );
+        min-height: 560px;
+        border-radius: 30px;
+        padding: 69px 64px;
+        margin-bottom: 88px;
+      }
+      .hero:before,
+      .hero:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.54;
+      }
+      .hero:before {
+        width: 430px;
+        height: 430px;
+        background: #d9ccff;
+        right: -120px;
+        top: -145px;
+      }
+      .hero:after {
+        width: 300px;
+        height: 300px;
+        background: #ffd0bb;
+        right: 110px;
+        bottom: -175px;
+      }
+      .eyebrow {
+        position: relative;
+        z-index: 1;
+        color: var(--lavender);
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .hero h1 {
+        position: relative;
+        z-index: 1;
+        font-family: "Playfair Display", serif;
+        font-size: clamp(50px, 7vw, 82px);
+        line-height: 0.97;
+        max-width: 610px;
+        margin: 17px 0 23px;
+        letter-spacing: -2px;
+      }
+      .hero h1 i {
+        color: var(--pink);
+        font-weight: 600;
+      }
+      .hero p {
+        position: relative;
+        z-index: 1;
+        max-width: 465px;
+        color: #5d6075;
+        font-size: 17px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+      .buttons {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .outline {
+        border: 1px solid #c4bddb;
+        background: #ffffff99;
+        color: var(--ink);
+        border-radius: 99px;
+        padding: 12px 19px;
+        font: 600 14px "DM Sans";
+        cursor: pointer;
+        min-height: 44px;
+      }
+      .datecard {
+        position: absolute;
+        z-index: 2;
+        right: 66px;
+        top: 225px;
+        width: 249px;
+        background: #ffffffde;
+        border: 1px solid #fff;
+        border-radius: 21px;
+        padding: 22px;
+        box-shadow: 0 18px 45px #836d9740;
+        backdrop-filter: blur(7px);
+      }
+      .datecard small {
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .datecard strong {
+        display: block;
+        font-family: "Playfair Display";
+        font-size: 32px;
+        margin: 6px 0;
+      }
+      .datecard p {
+        font-size: 13px;
+        margin: 0;
+        color: var(--muted);
+      }
+      .dots {
+        position: absolute;
+        z-index: 1;
+        bottom: 42px;
+        left: 64px;
+        display: flex;
+        gap: 7px;
+      }
+      .dots b {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--pink);
+      }
+      .dots b:nth-child(2) {
+        background: var(--peach);
+      }
+      .dots b:nth-child(3) {
+        background: var(--lavender);
+      }
+      section {
+        margin-bottom: 86px;
+      }
+      .heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 25px;
+        margin-bottom: 28px;
+      }
+      .heading h2 {
+        font: 600 37px/1.05 "Playfair Display";
+        margin: 0;
+      }
+      .heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 330px;
+        line-height: 1.5;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 25px;
+        background: white;
+        min-height: 210px;
+      }
+      .card:nth-child(1) {
+        background: #f5f2ff;
+      }
+      .card:nth-child(2) {
+        background: #fff3ed;
+      }
+      .card:nth-child(3) {
+        background: #fff0f4;
+      }
+      .icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: #fff;
+        font-size: 21px;
+      }
+      .card h3 {
+        font-size: 18px;
+        margin: 21px 0 8px;
+      }
+      .card p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+      }
+      .planner {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 28px;
+        overflow: hidden;
+      }
+      .planner-copy {
+        padding: 50px;
+      }
+      .planner h2 {
+        font: 600 38px/1.12 "Playfair Display";
+        margin: 0 0 16px;
+      }
+      .planner p {
+        color: #c5c4d0;
+        line-height: 1.65;
+        max-width: 430px;
+      }
+      .check {
+        display: grid;
+        gap: 13px;
+        margin: 27px 0;
+      }
+      .check div {
+        font-size: 14px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .check i {
+        font-style: normal;
+        flex: 0 0 20px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #5fd8ba;
+        color: #142f2b;
+        font-size: 12px;
+      }
+      .planner-side {
+        padding: 29px;
+        background: #eeeaff;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+      }
+      .mini {
+        width: 100%;
+        background: white;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 12px 29px #756c9b28;
+      }
+      .mini-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 19px;
+      }
+      .mini-head b {
+        font-size: 15px;
+      }
+      .progress {
+        height: 8px;
+        background: #eeeefa;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 13px 0 7px;
+      }
+      .progress span {
+        display: block;
+        width: 72%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--lavender), var(--pink));
+        border-radius: 10px;
+      }
+      .task {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        border-top: 1px solid #eeeaf4;
+        padding: 14px 0;
+        font-size: 13px;
+      }
+      .task span:last-child {
+        color: #6f62bd;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .events {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+      .event {
+        border-top: 2px solid var(--pink);
+        padding: 17px 4px;
+      }
+      .event:nth-child(2) {
+        border-color: var(--peach);
+      }
+      .event:nth-child(3) {
+        border-color: var(--lavender);
+      }
+      .event:nth-child(4) {
+        border-color: #77c9ac;
+      }
+      .event b {
+        display: block;
+        font: 600 22px "Playfair Display";
+        margin-bottom: 7px;
+      }
+      .event small {
+        display: block;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 13px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 32px 0 45px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .footer-logo {
+        color: var(--ink);
+        font: 700 19px "Playfair Display";
+      }
+      @media (max-width: 900px) {
+        .navlinks {
+          gap: 16px;
+        }
+        .hero {
+          padding: 60px 46px;
+        }
+        .datecard {
+          right: 40px;
+        }
+        .cards {
+          gap: 14px;
+        }
+      }
+      @media (max-width: 680px) {
+        .wrap {
+          width: min(100% - 32px, 560px);
+        }
+        nav {
+          height: 72px;
+        }
+        .navlinks {
+          display: none;
+        }
+        nav .pill {
+          padding: 10px 15px;
+          font-size: 13px;
+        }
+        .hero {
+          min-height: 625px;
+          border-radius: 23px;
+          padding: 43px 25px;
+          margin-bottom: 64px;
+        }
+        .hero:before {
+          width: 280px;
+          height: 280px;
+          right: -112px;
+          top: -102px;
+        }
+        .hero:after {
+          width: 235px;
+          height: 235px;
+          right: -94px;
+          bottom: -110px;
+        }
+        .eyebrow {
+          font-size: 10px;
+          letter-spacing: 1.1px;
+        }
+        .hero h1 {
+          font-size: clamp(43px, 14vw, 60px);
+          letter-spacing: -1.5px;
+          margin: 14px 0 18px;
+        }
+        .hero p {
+          max-width: 340px;
+          font-size: 14px;
+          margin-bottom: 23px;
+        }
+        .buttons {
+          align-items: stretch;
+          flex-direction: column;
+          width: min(100%, 285px);
+        }
+        .buttons button {
+          width: 100%;
+        }
+        .datecard {
+          left: 25px;
+          right: 25px;
+          top: auto;
+          bottom: 59px;
+          width: auto;
+          padding: 17px 19px;
+        }
+        .datecard strong {
+          font-size: 27px;
+        }
+        .dots {
+          left: 25px;
+          bottom: 27px;
+        }
+        .heading {
+          display: block;
+          margin-bottom: 23px;
+        }
+        .heading h2 {
+          font-size: 31px;
+        }
+        .heading p {
+          margin-top: 11px;
+        }
+        .cards,
+        .events {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .card {
+          min-height: 0;
+          padding: 22px;
+        }
+        .card h3 {
+          margin: 15px 0 7px;
+        }
+        .planner {
+          grid-template-columns: 1fr;
+          border-radius: 23px;
+        }
+        .planner-copy {
+          padding: 36px 25px;
+        }
+        .planner h2 {
+          font-size: 32px;
+        }
+        .planner-side {
+          padding: 20px;
+        }
+        .mini {
+          padding: 18px;
+        }
+        .check {
+          gap: 12px;
+        }
+        .check div {
+          font-size: 13px;
+        }
+        .events {
+          gap: 6px;
+        }
+        .event {
+          padding: 16px 4px 14px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+        }
+        .event b {
+          margin: 0;
+          font-size: 21px;
+        }
+        .event small {
+          font-size: 12px;
+        }
+        section {
+          margin-bottom: 64px;
+        }
+        footer {
+          padding: 25px 0 34px;
+          gap: 7px;
+          flex-direction: column;
+        }
+        .footer-logo {
+          margin-bottom: 3px;
+        }
+      }
+      @media (max-width: 360px) {
+        .wrap {
+          width: calc(100% - 24px);
+        }
+        .logo {
+          font-size: 21px;
+        }
+        nav .pill {
+          padding: 9px 12px;
+        }
+        .hero {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .datecard {
+          left: 20px;
+          right: 20px;
+        }
+        .dots {
+          left: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav>
+        <a class="logo" href="#">The BM <span>Wedding</span></a>
+        <div class="navlinks">
+          <a href="#story">Our Story</a><a href="#events">Events</a
+          ><a href="#planner">Planner</a><a href="#gallery">Gallery</a>
+        </div>
+        <button
+          class="pill"
+          onclick="
+            document
+              .querySelector('#events')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          RSVP now
+        </button>
+      </nav>
+    </div>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">Save the date · 18 December 2026</div>
+        <h1>Two hearts.<br /><i>One beautiful</i> beginning.</h1>
+        <p>
+          Welcome to the celebration of B &amp; M—where love, laughter, and our
+          favourite people come together.
+        </p>
+        <div class="buttons">
+          <button
+            class="pill"
+            onclick="
+              document
+                .querySelector('#events')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Explore the celebration</button
+          ><button class="outline">View gallery</button>
+        </div>
+        <div class="datecard">
+          <small>We’re getting married</small><strong>18 . 12 . 26</strong>
+          <p>Celebrate with us in Jaipur, India</p>
+        </div>
+        <div class="dots"><b></b><b></b><b></b></div>
+      </section>
+      <section id="story">
+        <div class="heading">
+          <h2>Everything, beautifully together.</h2>
+          <p>
+            A joyful space for your guests today—and an organized planning home
+            behind the scenes.
+          </p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">✓</div>
+            <h3>Wedding to-do</h3>
+            <p>
+              Keep every task, deadline, and small detail in one calm, clear
+              checklist.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon">✦</div>
+            <h3>Guest &amp; RSVP</h3>
+            <p>
+              Invite loved ones, collect responses, track meals, and plan
+              seating easily.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon">⌁</div>
+            <h3>Memories gallery</h3>
+            <p>
+              Share your favourite moments and let guests add their celebration
+              photos.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section id="planner" class="planner">
+        <div class="planner-copy">
+          <h2>Your planning, minus the chaos.</h2>
+          <p>
+            From first inspiration to the final dance, The BM Wedding keeps your
+            people, plans, and celebrations in sync.
+          </p>
+          <div class="check">
+            <div><i>✓</i> Simple budget and vendor tracking</div>
+            <div><i>✓</i> Personal event-day schedule</div>
+            <div><i>✓</i> Private planning dashboard</div>
+          </div>
+          <button
+            class="outline"
+            style="color: #fff; border-color: #77758c; background: transparent"
+          >
+            Open planner
+          </button>
+        </div>
+        <div class="planner-side">
+          <div class="mini">
+            <div class="mini-head"><b>Wedding overview</b><span>✨</span></div>
+            <small style="color: #77758a">Planning progress</small>
+            <div class="progress"><span></span></div>
+            <small style="color: #77758a">72% complete</small>
+            <div class="task">
+              <span>Guest invitations</span><span>Done</span>
+            </div>
+            <div class="task">
+              <span>Finalise décor</span><span>3 days</span>
+            </div>
+            <div class="task"><span>Menu tasting</span><span>7 days</span></div>
+          </div>
+        </div>
+      </section>
+      <section id="events">
+        <div class="heading">
+          <h2>Come celebrate with us.</h2>
+          <p>Four days, countless memories, and all our favourite people.</p>
+        </div>
+        <div class="events">
+          <div class="event">
+            <b>Mehendi</b><small>16 Dec · 4 PM<br />Garden Courtyard</small>
+          </div>
+          <div class="event">
+            <b>Sangeet</b><small>17 Dec · 7 PM<br />Amber Ballroom</small>
+          </div>
+          <div class="event">
+            <b>The Wedding</b><small>18 Dec · 6 PM<br />Heritage Palace</small>
+          </div>
+          <div class="event">
+            <b>Reception</b><small>19 Dec · 8 PM<br />Moonlight Terrace</small>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap">
+      <span class="footer-logo">The BM Wedding</span
+      ><span>Made with love for B &amp; M</span><span>18 December 2026</span>
+    </footer>
+  </body>
+</html>

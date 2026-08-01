@@ -1,0 +1,1923 @@
+/* ===========================
+   GOOGLE FONT RESET
+=========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family: 'Poppins', sans-serif;
+    background: #faf7ff;
+    color: #2f2f3a;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ===========================
+   COLORS
+=========================== */
+
+:root {
+
+    --primary: #7c5cff;
+    --secondary: #ff6ea8;
+    --gold: #f6b73c;
+
+    --white: #ffffff;
+
+    --light: #faf7ff;
+
+    --dark: #25253a;
+
+    --text: #555;
+
+    --glass: rgba(255, 255, 255, .35);
+
+    --border: rgba(255, 255, 255, .45);
+
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+
+.container {
+
+    width: min(1200px, 92%);
+    margin: auto;
+
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+
+.background-blur {
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    filter: blur(140px);
+
+    z-index: -10;
+
+    opacity: .45;
+
+}
+
+.blur1 {
+
+    width: 420px;
+
+    height: 420px;
+
+    background: #b58cff;
+
+    top: -150px;
+
+    left: -100px;
+
+}
+
+.blur2 {
+
+    width: 450px;
+
+    height: 450px;
+
+    background: #ff9ec5;
+
+    right: -140px;
+
+    bottom: -140px;
+
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 999;
+
+    backdrop-filter: blur(18px);
+
+    background: rgba(255, 255, 255, .72);
+
+    border-bottom: 1px solid rgba(255, 255, 255, .4);
+
+}
+
+nav {
+
+    height: 80px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.logo {
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+.logo span {
+
+    color: var(--secondary);
+
+}
+
+.nav-links {
+
+    display: flex;
+
+    list-style: none;
+
+    gap: 35px;
+
+}
+
+.nav-links a {
+
+    text-decoration: none;
+
+    color: #444;
+
+    font-weight: 500;
+
+    transition: .35s;
+
+}
+
+.nav-links a:hover {
+
+    color: var(--primary);
+
+}
+
+.nav-btn button {
+
+    border: none;
+
+    cursor: pointer;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    color: #fff;
+
+    padding: 13px 28px;
+
+    border-radius: 40px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: .4s;
+
+}
+
+.nav-btn button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 35px rgba(124, 92, 255, .3);
+
+}
+
+.mobile-menu {
+
+    display: none;
+
+    font-size: 30px;
+
+    cursor: pointer;
+
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.hero-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 70px;
+
+    align-items: center;
+
+}
+
+.badge {
+
+    display: inline-block;
+
+    padding: 10px 18px;
+
+    background: #ffd978;
+
+    color: #4b356d;
+
+    border: 1px solid rgba(104, 67, 35, .18);
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    box-shadow: 0 8px 25px rgba(129, 86, 34, .18);
+
+    margin-bottom: 20px;
+
+}
+
+.hero-left h1 {
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 72px;
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+
+}
+
+.hero-left h1 span {
+
+    color: var(--primary);
+
+}
+
+.hero-left p {
+
+    color: #666;
+
+    font-size: 18px;
+
+    margin-bottom: 35px;
+
+}
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+}
+
+.btn-primary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px 34px;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    color: #fff;
+
+    border-radius: 40px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .35s;
+
+}
+
+.btn-primary:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 18px 40px rgba(124, 92, 255, .28);
+
+}
+
+.btn-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px 34px;
+
+    border-radius: 40px;
+
+    text-decoration: none;
+
+    border: 2px solid var(--primary);
+
+    color: var(--primary);
+
+    transition: .35s;
+
+}
+
+.btn-secondary:hover {
+
+    background: var(--primary);
+
+    color: #fff;
+
+}
+
+/* ===========================
+   GLASS CARD
+=========================== */
+
+.glass-card {
+
+    background: rgba(255, 255, 255, .45);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, .4);
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .08);
+
+}
+
+/* ==========================================
+   COUNTDOWN CARD
+========================================== */
+
+.countdown-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    top: -110px;
+    right: -110px;
+    opacity: .15;
+}
+
+.countdown-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+
+.countdown-card h4 {
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.countdown {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+
+}
+
+.countdown div {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 20px 10px;
+
+    text-align: center;
+
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .08);
+
+    transition: .35s;
+
+}
+
+.countdown div:hover {
+
+    transform: translateY(-8px);
+
+}
+
+.countdown h2 {
+
+    font-size: 38px;
+
+    color: var(--primary);
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+.countdown span {
+
+    color: #777;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+/* ==========================================
+   FLOATING CARDS
+========================================== */
+
+.floating-card {
+
+    position: absolute;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .12);
+
+    animation: float 5s ease-in-out infinite;
+
+}
+
+.floating-card i {
+
+    font-size: 24px;
+
+    color: var(--secondary);
+
+}
+
+.card-one {
+
+    top: 10%;
+
+    right: -30px;
+
+}
+
+.card-two {
+
+    bottom: 5%;
+
+    left: -40px;
+
+    animation-delay: 2s;
+
+}
+
+@keyframes float {
+
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+
+}
+
+/* ==========================================
+   STATS
+========================================== */
+
+.stats {
+
+    margin: 100px 0;
+
+}
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+
+}
+
+.stat-card {
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .06);
+
+    transition: .4s;
+
+}
+
+.stat-card:hover {
+
+    transform: translateY(-10px);
+
+}
+
+.stat-card h2 {
+
+    font-size: 42px;
+
+    color: var(--primary);
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+.stat-card p {
+
+    margin-top: 10px;
+
+    color: #666;
+
+}
+
+/* ==========================================
+   SECTION TITLE
+========================================== */
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 60px;
+
+}
+
+.section-title h2 {
+
+    font-size: 46px;
+
+    font-family: 'Playfair Display', serif;
+
+    margin-bottom: 12px;
+
+}
+
+.section-title p {
+
+    color: #777;
+
+    font-size: 18px;
+
+}
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 30px;
+
+}
+
+.dashboard-card {
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 35px;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .06);
+
+    transition: .4s;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+.dashboard-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    height: 5px;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+    transform: scaleX(0);
+
+    transition: .4s;
+
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-12px);
+
+}
+
+.dashboard-card:hover::after {
+
+    transform: scaleX(1);
+
+}
+
+.dashboard-card h3 {
+
+    margin: 20px 0 12px;
+
+    font-size: 24px;
+
+}
+
+.dashboard-card p {
+
+    color: #666;
+
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+
+}
+
+/* ==========================================
+   ICONS
+========================================== */
+
+.card-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 32px;
+
+    color: white;
+
+}
+
+.purple {
+
+    background: #7c5cff;
+
+}
+
+.pink {
+
+    background: #ff5da2;
+
+}
+
+.orange {
+
+    background: #ff9933;
+
+}
+
+.blue {
+
+    background: #47a4ff;
+
+}
+
+.green {
+
+    background: #20bf6b;
+
+}
+
+.red {
+
+    background: #ff5d5d;
+
+}
+
+.yellow {
+
+    background: #f4b400;
+
+}
+
+.violet {
+
+    background: #8b5cf6;
+
+}
+
+/* ==========================================
+   CARD BUTTON
+========================================== */
+
+.card-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    color: var(--primary);
+
+    font-weight: 600;
+
+    transition: .3s;
+
+}
+
+.card-btn:hover {
+
+    gap: 15px;
+
+}
+
+/* ==========================================
+   PROGRESS BAR
+========================================== */
+
+.progress-bar {
+
+    margin-top: 18px;
+
+    height: 10px;
+
+    background: #eee;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+}
+
+.progress {
+
+    width: 72%;
+
+    height: 100%;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+    border-radius: 30px;
+
+    animation: progressMove 2s ease;
+
+}
+
+.progress-text {
+
+    display: block;
+
+    margin-top: 12px;
+
+    font-weight: 600;
+
+    color: var(--primary);
+
+}
+
+@keyframes progressMove {
+
+    from {
+
+        width: 0;
+
+    }
+
+    to {
+
+        width: 72%;
+
+    }
+
+}
+
+/* ==========================================
+   EVENTS / TIMELINE
+========================================== */
+
+.timeline {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 30px;
+
+}
+
+.timeline-card {
+
+    position: relative;
+
+    background: #fff;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .06);
+
+    transition: .4s;
+
+    overflow: hidden;
+
+}
+
+.timeline-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 6px;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+}
+
+.timeline-card:hover {
+
+    transform: translateY(-10px);
+
+}
+
+.timeline-card span {
+
+    display: inline-block;
+
+    background: rgba(124, 92, 255, .1);
+
+    color: var(--primary);
+
+    padding: 8px 16px;
+
+    border-radius: 30px;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+
+}
+
+.timeline-card h3 {
+
+    margin-bottom: 15px;
+
+    font-size: 24px;
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+.timeline-card p {
+
+    color: #666;
+
+    line-height: 1.8;
+
+}
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.gallery-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 25px;
+
+}
+
+.gallery-card {
+
+    position: relative;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    height: 320px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
+
+}
+
+.gallery-card img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .6s;
+
+}
+
+.gallery-card:hover img {
+
+    transform: scale(1.12);
+
+}
+
+.gallery-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, .75),
+            rgba(0, 0, 0, .1));
+
+    display: flex;
+
+    align-items: flex-end;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    transition: .4s;
+
+}
+
+.gallery-card:hover .gallery-overlay {
+
+    opacity: 1;
+
+}
+
+.gallery-overlay h3 {
+
+    color: #fff;
+
+    font-size: 28px;
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+/* ==========================================
+   PLANNER
+========================================== */
+
+.planner-wrapper {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 40px;
+
+    align-items: start;
+
+}
+
+.glass-box {
+
+    background: rgba(255, 255, 255, .45);
+
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, .5);
+
+    border-radius: 25px;
+
+    padding: 35px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .06);
+
+}
+
+.glass-box h3 {
+
+    margin-bottom: 20px;
+
+    font-size: 26px;
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+.glass-box ul {
+
+    list-style: none;
+
+}
+
+.glass-box li {
+
+    margin: 16px 0;
+
+    color: #555;
+
+}
+
+.planner-progress {
+
+    width: 100%;
+
+    height: 12px;
+
+    background: #ececec;
+
+    border-radius: 40px;
+
+    overflow: hidden;
+
+    margin: 20px 0;
+
+}
+
+.planner-progress-fill {
+
+    width: 72%;
+
+    height: 100%;
+
+    border-radius: 40px;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+}
+
+.highlight-card {
+
+    text-align: center;
+
+}
+
+.highlight-card h2 {
+
+    font-size: 54px;
+
+    color: var(--primary);
+
+    font-family: 'Playfair Display', serif;
+
+    margin-bottom: 10px;
+
+}
+
+.highlight-card h4 {
+
+    margin-bottom: 20px;
+
+    color: var(--secondary);
+
+    font-size: 24px;
+
+}
+
+.highlight-card p {
+
+    margin-bottom: 30px;
+
+    color: #666;
+
+    line-height: 1.8;
+
+}
+
+/* ==========================================
+   FAMILY MESSAGE
+========================================== */
+
+.family-message {
+
+    margin: 100px 0;
+
+}
+
+.message-card {
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    color: #fff;
+
+    padding: 70px;
+
+    border-radius: 35px;
+
+    text-align: center;
+
+    box-shadow: 0 30px 60px rgba(124, 92, 255, .25);
+
+}
+
+.message-card h2 {
+
+    font-size: 42px;
+
+    font-family: 'Playfair Display', serif;
+
+    margin-bottom: 25px;
+
+}
+
+.message-card p {
+
+    font-size: 18px;
+
+    line-height: 2;
+
+    max-width: 800px;
+
+    margin: auto;
+
+}
+
+/* ==========================================
+   CONTACT
+========================================== */
+
+.contact-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+
+}
+
+.contact-card {
+
+    background: #fff;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    padding: 40px;
+
+    transition: .4s;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .06);
+
+}
+
+.contact-card:hover {
+
+    transform: translateY(-10px);
+
+}
+
+.contact-card i {
+
+    font-size: 48px;
+
+    color: var(--primary);
+
+    margin-bottom: 20px;
+
+}
+
+.contact-card h3 {
+
+    margin-bottom: 12px;
+
+    font-size: 24px;
+
+}
+
+.contact-card p {
+
+    color: #666;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+
+    margin-top: 100px;
+
+    background: #1d1d2f;
+
+    color: white;
+
+    padding: 60px 0;
+
+}
+
+.footer-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+
+}
+
+.footer-links {
+
+    display: flex;
+
+    gap: 25px;
+
+}
+
+.footer-links a {
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: .3s;
+
+}
+
+.footer-links a:hover {
+
+    color: #ffb3d5;
+
+}
+
+/* ==========================================
+   SCROLL REVEAL
+========================================== */
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(60px);
+
+    transition: 1s ease;
+
+}
+
+.reveal.active {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+/* ---------- Large Tablets ---------- */
+
+@media (max-width:1100px) {
+
+    .hero-grid {
+
+        grid-template-columns: 1fr;
+
+        text-align: center;
+
+    }
+
+    .hero-left {
+
+        order: 2;
+
+    }
+
+    .hero-right {
+
+        order: 1;
+
+        display: flex;
+
+        justify-content: center;
+
+    }
+
+    .hero-buttons {
+
+        justify-content: center;
+
+    }
+
+    .planner-wrapper {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .footer-content {
+
+        justify-content: center;
+
+        text-align: center;
+
+    }
+
+}
+
+/* ---------- Tablets ---------- */
+
+@media (max-width:900px) {
+
+    .nav-links {
+
+        display: none;
+
+    }
+
+    .mobile-menu {
+
+        display: block;
+
+    }
+
+    .nav-btn {
+
+        display: none;
+
+    }
+
+    .hero {
+
+        padding: 80px 0;
+
+    }
+
+    .hero-left h1 {
+
+        font-size: 56px;
+
+    }
+
+    .section-title h2 {
+
+        font-size: 38px;
+
+    }
+
+    .stats-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    .countdown {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    .card-one {
+
+        right: 0;
+
+        top: -20px;
+
+    }
+
+    .card-two {
+
+        left: 0;
+
+        bottom: -20px;
+
+    }
+
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:768px) {
+
+    .container {
+
+        width: 94%;
+
+    }
+
+    .hero {
+
+        min-height: auto;
+
+        padding: 60px 0;
+
+    }
+
+    .hero-grid {
+
+        gap: 50px;
+
+    }
+
+    .hero-left h1 {
+
+        font-size: 42px;
+
+        line-height: 1.2;
+
+    }
+
+    .hero-left p {
+
+        font-size: 16px;
+
+    }
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+    .btn-primary,
+
+    .btn-secondary {
+
+        width: 100%;
+
+        max-width: 320px;
+
+        justify-content: center;
+
+    }
+
+    .glass-card {
+
+        padding: 25px;
+
+    }
+
+    .countdown {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+
+    }
+
+    .countdown div {
+
+        padding: 16px 8px;
+
+    }
+
+    .countdown h2 {
+
+        font-size: 28px;
+
+    }
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .gallery-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .timeline {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .contact-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .message-card {
+
+        padding: 40px 25px;
+
+    }
+
+    .message-card h2 {
+
+        font-size: 32px;
+
+    }
+
+    .message-card p {
+
+        font-size: 16px;
+
+        line-height: 1.8;
+
+    }
+
+    .highlight-card h2 {
+
+        font-size: 40px;
+
+    }
+
+    .footer-links {
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+    }
+
+}
+
+/* ---------- Small Phones ---------- */
+
+@media (max-width:480px) {
+
+    .logo {
+
+        font-size: 24px;
+
+    }
+
+    .hero-left h1 {
+
+        font-size: 34px;
+
+    }
+
+    .badge {
+
+        font-size: 12px;
+
+        padding: 8px 14px;
+
+    }
+
+    .section-title h2 {
+
+        font-size: 30px;
+
+    }
+
+    .dashboard-card {
+
+        padding: 25px;
+
+    }
+
+    .timeline-card {
+
+        padding: 25px;
+
+    }
+
+    .contact-card {
+
+        padding: 25px;
+
+    }
+
+    .glass-box {
+
+        padding: 25px;
+
+    }
+
+    .card-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 28px;
+
+    }
+
+    .countdown {
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .countdown h2 {
+
+        font-size: 24px;
+
+    }
+
+    .floating-card {
+
+        display: none;
+
+    }
+
+}
+
+/* ==========================================
+   DARK MODE
+========================================== */
+
+body.dark {
+
+    background: #0f1117;
+
+    color: #ffffff;
+
+}
+
+body.dark header {
+
+    background: rgba(15, 17, 23, .85);
+
+    border-color: rgba(255, 255, 255, .08);
+
+}
+
+body.dark .dashboard-card,
+body.dark .timeline-card,
+body.dark .contact-card,
+body.dark .glass-box,
+body.dark .stat-card,
+body.dark .glass-card {
+
+    background: #1a1d27;
+
+    color: white;
+
+}
+
+body.dark p {
+
+    color: #d0d0d0;
+
+}
+
+body.dark .nav-links a {
+
+    color: white;
+
+}
+
+body.dark .badge {
+
+    background: #f5bd4d;
+
+    color: #30213f;
+
+}
+
+body.dark footer {
+
+    background: #090a0f;
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: #f2f2f2;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: linear-gradient(var(--primary), var(--secondary));
+
+    border-radius: 20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: var(--primary);
+
+}
+
+/* ==========================================
+   IMAGE SETTINGS
+========================================== */
+
+img {
+
+    max-width: 100%;
+
+    display: block;
+
+}
+
+/* ==========================================
+   SELECTION
+========================================== */
+
+::selection {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(40px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+.hero-left {
+
+    animation: fadeUp 1s ease;
+
+}
+
+.hero-right {
+
+    animation: fadeUp 1.2s ease;
+
+}
+
+.dashboard-card,
+.timeline-card,
+.gallery-card,
+.contact-card {
+
+    transition: .4s ease;
+
+}
+
+.dashboard-card:hover,
+.timeline-card:hover,
+.gallery-card:hover,
+.contact-card:hover {
+
+    transform: translateY(-10px);
+
+}
+
+/* ==========================================
+   END OF FILE
+========================================== */
+
+.nav-links.show {
+
+    display: flex;
+
+    position: absolute;
+
+    top: 80px;
+
+    left: 0;
+
+    width: 100%;
+
+    background: white;
+
+    flex-direction: column;
+
+    padding: 25px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+
+    z-index: 1000;
+
+}
+
+.nav-links.show li {
+
+    padding: 10px 0;
+
+    text-align: center;
+
+}
