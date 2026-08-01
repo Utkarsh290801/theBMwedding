@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use(express.json());
 const noteRoutes = require("./routes/noteRoutes");
-app.use("/api/notes", noteRoutes);
+app.use(["/api/notes", "/notes"], noteRoutes);
 app.get("/", (req, res) => {
     res.send("BM Wedding API Running");
 });
