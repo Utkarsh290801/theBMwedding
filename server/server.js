@@ -9,18 +9,7 @@ const app = express();
 
 connectDB();
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        // Allow requests from GitHub Pages and any other browser origin.
-        callback(null, true);
-    },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 const noteRoutes = require("./routes/noteRoutes");
