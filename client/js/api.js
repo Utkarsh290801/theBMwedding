@@ -1,6 +1,6 @@
 const API = {
 
-    baseURL: "https://bm-wedding-three.vercel.app/api",
+    baseURL: "https://bm-wedding-three.vercel.app",
 
     async request(endpoint, options = {}) {
 
