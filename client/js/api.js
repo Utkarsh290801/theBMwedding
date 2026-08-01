@@ -1,11 +1,12 @@
 const API = {
 
-    baseURL: "https://bm-wedding-three.vercel.app/",
+    baseURL: "https://bm-wedding-three.vercel.app/api",
 
     async request(endpoint, options = {}) {
 
+        const url = `${this.baseURL.replace(/\/$/, "")}${endpoint}`;
         const response = await fetch(
-            `${this.baseURL}${endpoint}`,
+            url,
             {
                 headers: {
                     "Content-Type": "application/json",
