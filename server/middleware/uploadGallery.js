@@ -24,9 +24,11 @@ try {
     console.error("Unable to create upload directory:", uploadPath, error.message);
 }
 
-// =====================================
-// Storage
-// =====================================
+module.exports = {
+    uploadPath,
+    relativePath: (filename) => `/uploads/gallery/${filename}`,
+    isServerless,
+};
 
 const storage = multer.diskStorage({
 
