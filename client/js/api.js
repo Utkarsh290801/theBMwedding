@@ -1,11 +1,17 @@
 const API = {
 
-    baseURL: "https://the-mb-wedding.vercel.app/",
+    baseURL: "https://the-mb-wedding.vercel.app",
     // baseURL: "http://localhost:5000",
+
+    buildUrl(endpoint) {
+        const normalizedBase = this.baseURL.replace(/\/+$/, "");
+        const normalizedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+        return `${normalizedBase}${normalizedEndpoint}`;
+    },
 
     async request(endpoint, options = {}) {
 
-        const url = `${this.baseURL.replace(/\/$/, "")}${endpoint}`;
+        const url = this.buildUrl(endpoint);
         const response = await fetch(
             url,
             {

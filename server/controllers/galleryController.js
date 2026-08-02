@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const GalleryFolder = require("../models/GalleryFolder");
 const GalleryImage = require("../models/GalleryImage");
 const cloudinary = require("cloudinary").v2;

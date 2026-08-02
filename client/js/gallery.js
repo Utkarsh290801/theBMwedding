@@ -511,7 +511,7 @@ uploadImages.addEventListener("click", async () => {
     }
 
     await fetch(
-      `${API.baseURL}/gallery/upload`,
+      API.buildUrl("/gallery/upload"),
 
       {
         method: "POST",
