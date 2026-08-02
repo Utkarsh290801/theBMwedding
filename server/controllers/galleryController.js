@@ -78,7 +78,7 @@ function uploadBufferToCloudinary(buffer, folderId) {
             {
                 folder: `bm_wedding/gallery/${folderId}`,
                 resource_type: "image",
-                format: "auto",
+                fetch_format: "auto",
             },
             (error, result) => {
                 if (error) return reject(error);
