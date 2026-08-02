@@ -1,22 +1,27 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 
 // =====================================
-// Create uploads/gallery if not exists
+// Upload root path
 // =====================================
 
-const uploadPath = path.join(
-    __dirname,
-    "../uploads/gallery"
-);
+const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const uploadRoot = isServerless
+    ? path.join(os.tmpdir(), "uploads")
+    : path.join(__dirname, "../uploads");
 
-if (!fs.existsSync(uploadPath)) {
+const uploadPath = path.join(uploadRoot, "gallery");
 
-    fs.mkdirSync(uploadPath, {
-        recursive: true
-    });
-
+try {
+    if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, {
+            recursive: true,
+        });
+    }
+} catch (error) {
+    console.error("Unable to create upload directory:", uploadPath, error.message);
 }
 
 // =====================================
