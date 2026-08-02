@@ -1,5 +1,5 @@
 // ========================================
-// BM Wedding Portal - Storage Helper
+// MB Wedding Portal - Storage Helper
 // ========================================
 
 const Storage = {

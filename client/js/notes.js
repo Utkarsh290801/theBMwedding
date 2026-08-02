@@ -1,5 +1,5 @@
 // ======================================
-// BM Wedding Notes
+// MB Wedding Notes
 // ======================================
 
 // -----------------------------
@@ -21,6 +21,10 @@ const notesContainer = document.getElementById("notesContainer");
 const searchInput = document.getElementById("search");
 
 const filterCategory = document.getElementById("filterCategory");
+const filterStatus = document.getElementById("filterStatus");
+
+const shortlistsInput = document.getElementById("shortlisted");
+const shortlistGroup = document.getElementById("shortlistGroup");
 
 const totalNotes = document.getElementById("totalNotes");
 const venueCount = document.getElementById("venueCount");
@@ -123,7 +127,10 @@ function formatNoteDate(date) {
 
 function updateVenueAvailabilityVisibility() {
 
-    venueAvailabilityGroup.hidden = categoryInput.value !== "Venue";
+    const isVenue = categoryInput.value === "Venue";
+
+    venueAvailabilityGroup.hidden = !isVenue;
+    shortlistGroup.hidden = !isVenue;
     guestCountGroup.hidden = categoryInput.value !== "Guests";
 
 }
@@ -218,7 +225,14 @@ function renderNotes(search = searchInput.value) {
 
             note.category === selectedCategory;
 
-        return matchesSearch && matchesCategory;
+        const selectedStatus = filterStatus.value;
+
+        const matchesStatus =
+            selectedStatus === "" ||
+            (selectedStatus === "Shortlisted" ? note.shortlisted === true :
+                note.category === "Venue" && note.venueAvailability === selectedStatus);
+
+        return matchesSearch && matchesCategory && matchesStatus;
 
     });
 
@@ -286,6 +300,13 @@ function renderNotes(search = searchInput.value) {
         <span class="venue-status ${note.venueAvailability === "Available" ? "is-available" : "is-unavailable"}">
             <i class="ri-${note.venueAvailability === "Available" ? "checkbox-circle" : "close-circle"}-fill"></i>
             ${note.venueAvailability}
+        </span>
+    ` : ""}
+
+    ${note.category === "Venue" && note.shortlisted ? `
+        <span class="venue-shortlisted">
+            <i class="ri-star-fill"></i>
+            Shortlisted
         </span>
     ` : ""}
 
@@ -364,6 +385,12 @@ filterCategory.addEventListener("change", () => {
 
 });
 
+filterStatus.addEventListener("change", () => {
+
+    renderNotes();
+
+});
+
 categoryInput.addEventListener("change", updateVenueAvailabilityVisibility);
 
 // ======================================
@@ -377,6 +404,9 @@ saveButton.addEventListener("click", async () => {
     const venueAvailability = category === "Venue"
         ? venueAvailabilityInput.value
         : undefined;
+    const shortlisted = category === "Venue"
+        ? shortlistsInput.checked
+        : false;
     const guestCount = category === "Guests"
         ? Number(guestCountInput.value)
         : undefined;
@@ -404,6 +434,7 @@ saveButton.addEventListener("click", async () => {
         category,
         description,
         venueAvailability,
+        shortlisted,
         guestCount
 
     };
@@ -460,6 +491,7 @@ function editNote(id) {
     titleInput.value = note.title;
     categoryInput.value = note.category;
     venueAvailabilityInput.value = note.venueAvailability || "Available";
+    shortlistsInput.checked = note.shortlisted === true;
     guestCountInput.value = note.guestCount || 1;
     descriptionInput.value = note.description;
     updateVenueAvailabilityVisibility();
@@ -510,6 +542,7 @@ function clearForm() {
 
     categoryInput.selectedIndex = 0;
     venueAvailabilityInput.value = "Available";
+    shortlistsInput.checked = false;
     guestCountInput.value = 1;
     updateVenueAvailabilityVisibility();
 

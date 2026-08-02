@@ -15,7 +15,7 @@ app.use(express.json());
 const noteRoutes = require("./routes/noteRoutes");
 app.use(["/api/notes", "/notes"], noteRoutes);
 app.get("/", (req, res) => {
-    res.send("BM Wedding API Running");
+    res.send("MB Wedding API Running");
 });
 
 const PORT = process.env.PORT || 5000;

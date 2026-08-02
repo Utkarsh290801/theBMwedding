@@ -1,5 +1,5 @@
 // ================================
-// BM Wedding Dashboard
+// MB Wedding Dashboard
 // ================================
 
 document.addEventListener("DOMContentLoaded", () => {
