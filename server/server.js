@@ -12,8 +12,11 @@ connectDB();
 app.use(cors());
 
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 const noteRoutes = require("./routes/noteRoutes");
+const galleryRoutes = require("./routes/galleryRoutes");
 app.use(["/api/notes", "/notes"], noteRoutes);
+app.use(["/api/gallery", "/gallery"], galleryRoutes);
 app.get("/", (req, res) => {
     res.send("MB Wedding API Running");
 });
