@@ -20,6 +20,58 @@ function getFullUrl(req, urlPath) {
     return host + urlPath;
 }
 
+function isCloudinaryUrl(urlPath) {
+    return typeof urlPath === "string" && /cloudinary\.com/i.test(urlPath);
+}
+
+function isLocalUploadUrl(urlPath) {
+    return typeof urlPath === "string" && /^\/?uploads\//i.test(urlPath);
+}
+
+function deleteLocalFileIfExists(urlPath) {
+    if (!urlPath || isCloudinaryUrl(urlPath) || !isLocalUploadUrl(urlPath)) return;
+
+    const normalizedPath = urlPath.replace(/^\/+/, "");
+    const filePath = path.resolve(__dirname, "..", normalizedPath);
+
+    if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
+}
+
+async function resolveMediaUrl(req, urlPath, folderId, documentRef) {
+    if (!urlPath) return "";
+
+    if (isCloudinaryUrl(urlPath)) {
+        return urlPath;
+    }
+
+    if (isLocalUploadUrl(urlPath)) {
+        const normalizedPath = urlPath.replace(/^\/+/, "");
+        const filePath = path.resolve(__dirname, "..", normalizedPath);
+
+        if (fs.existsSync(filePath)) {
+            try {
+                const buffer = fs.readFileSync(filePath);
+                const uploadResult = await uploadBufferToCloudinary(buffer, String(folderId || ""));
+
+                if (documentRef && typeof documentRef.save === "function") {
+                    documentRef.imageUrl = uploadResult.secure_url;
+                    await documentRef.save();
+                }
+
+                return uploadResult.secure_url;
+            } catch (error) {
+                console.error("Failed to migrate local gallery image to Cloudinary:", error.message);
+            }
+        }
+
+        return "";
+    }
+
+    return getFullUrl(req, urlPath);
+}
+
 function uploadBufferToCloudinary(buffer, folderId) {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
@@ -91,10 +143,16 @@ exports.getFolders = async (req, res) => {
 
             });
 
-        const responseFolders = folders.map(f => ({
-            ...f.toObject(),
-            coverImage: getFullUrl(req, f.coverImage)
-        }));
+        const responseFolders = [];
+
+        for (const folder of folders) {
+            const coverImage = await resolveMediaUrl(req, folder.coverImage, folder._id, folder);
+
+            responseFolders.push({
+                ...folder.toObject(),
+                coverImage
+            });
+        }
 
         res.json({
 
@@ -163,10 +221,18 @@ exports.uploadImages = async (req, res) => {
         }
 
         // Return images with absolute URLs so remote frontends can load them
-        const responseImages = savedImages.map(img => ({
-            ...img.toObject(),
-            imageUrl: getFullUrl(req, img.imageUrl)
-        }));
+        const responseImages = [];
+
+        for (const img of savedImages) {
+            const resolvedUrl = await resolveMediaUrl(req, img.imageUrl, img.folderId, img);
+
+            if (resolvedUrl) {
+                responseImages.push({
+                    ...img.toObject(),
+                    imageUrl: resolvedUrl
+                });
+            }
+        }
 
         res.json({
             success: true,
@@ -205,10 +271,18 @@ exports.getImages = async (req, res) => {
 
             });
 
-        const responseImages = images.map(img => ({
-            ...img.toObject(),
-            imageUrl: getFullUrl(req, img.imageUrl)
-        }));
+        const responseImages = [];
+
+        for (const img of images) {
+            const resolvedUrl = await resolveMediaUrl(req, img.imageUrl, img.folderId, img);
+
+            if (resolvedUrl) {
+                responseImages.push({
+                    ...img.toObject(),
+                    imageUrl: resolvedUrl
+                });
+            }
+        }
 
         res.json({
 
@@ -305,23 +379,8 @@ exports.deleteImage = async (req, res) => {
 
         }
 
-        // Delete physical file
-
-        const filePath = path.join(
-
-            __dirname,
-
-            "..",
-
-            image.imageUrl
-
-        );
-
-        if (fs.existsSync(filePath)) {
-
-            fs.unlinkSync(filePath);
-
-        }
+        // Delete physical file when the image still points to a local upload path
+        deleteLocalFileIfExists(image.imageUrl);
 
         const folderId = image.folderId;
 
@@ -404,26 +463,9 @@ exports.deleteFolder = async (req, res) => {
 
         });
 
-        // Delete all image files
-
+        // Delete all local image files that still exist on disk
         for (const image of images) {
-
-            const filePath = path.join(
-
-                __dirname,
-
-                "..",
-
-                image.imageUrl
-
-            );
-
-            if (fs.existsSync(filePath)) {
-
-                fs.unlinkSync(filePath);
-
-            }
-
+            deleteLocalFileIfExists(image.imageUrl);
         }
 
         // Delete DB records
