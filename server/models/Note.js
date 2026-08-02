@@ -19,6 +19,10 @@ const noteSchema = new mongoose.Schema(
       type: Number,
       min: 1,
     },
+    eventTypes: {
+      type: [String],
+      default: [],
+    },
     shortlisted: {
       type: Boolean,
       default: false,

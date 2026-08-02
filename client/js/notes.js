@@ -12,6 +12,8 @@ const venueAvailabilityInput = document.getElementById("venueAvailability");
 const venueAvailabilityGroup = document.getElementById("venueAvailabilityGroup");
 const guestCountInput = document.getElementById("guestCount");
 const guestCountGroup = document.getElementById("guestCountGroup");
+const guestEventGroup = document.getElementById("guestEventGroup");
+const guestEventOptions = document.getElementById("guestEventOptions");
 const descriptionInput = document.getElementById("description");
 
 const saveButton = document.getElementById("saveNote");
@@ -22,6 +24,7 @@ const searchInput = document.getElementById("search");
 
 const filterCategory = document.getElementById("filterCategory");
 const filterStatus = document.getElementById("filterStatus");
+const filterGuestEvent = document.getElementById("filterGuestEvent");
 
 const shortlistsInput = document.getElementById("shortlisted");
 const shortlistGroup = document.getElementById("shortlistGroup");
@@ -128,11 +131,38 @@ function formatNoteDate(date) {
 function updateVenueAvailabilityVisibility() {
 
     const isVenue = categoryInput.value === "Venue";
+    const isGuest = categoryInput.value === "Guests";
 
     venueAvailabilityGroup.hidden = !isVenue;
     shortlistGroup.hidden = !isVenue;
-    guestCountGroup.hidden = categoryInput.value !== "Guests";
+    guestCountGroup.hidden = !isGuest;
+    guestEventGroup.hidden = !isGuest;
 
+}
+
+function getGuestEventValues(note = null) {
+    if (note) {
+        const values = Array.isArray(note.eventTypes)
+            ? note.eventTypes
+            : (Array.isArray(note.eventType) ? note.eventType : (note.eventType ? [note.eventType] : []));
+        return values.filter(Boolean);
+    }
+
+    if (!guestEventOptions) return [];
+
+    return Array.from(guestEventOptions.querySelectorAll("input[type='checkbox']:checked"))
+        .map((checkbox) => checkbox.value)
+        .filter(Boolean);
+}
+
+function setGuestEventValues(values = []) {
+    if (!guestEventOptions) return;
+
+    const selectedValues = new Set(values.filter(Boolean));
+
+    guestEventOptions.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.checked = selectedValues.has(checkbox.value);
+    });
 }
 
 // ======================================
@@ -203,7 +233,7 @@ function renderNotes(search = searchInput.value) {
     notesContainer.innerHTML = "";
 
     const selectedCategory = filterCategory.value;
-
+        const selectedGuestEvent = filterGuestEvent.value;
     const filtered = notes.filter(note => {
 
         const matchesSearch =
@@ -225,6 +255,13 @@ function renderNotes(search = searchInput.value) {
 
             note.category === selectedCategory;
 
+        const noteGuestEvents = getGuestEventValues(note);
+
+        const matchesGuestEvent =
+            selectedCategory !== "Guests" ||
+            selectedGuestEvent === "" ||
+            noteGuestEvents.includes(selectedGuestEvent);
+
         const selectedStatus = filterStatus.value;
 
         const matchesStatus =
@@ -232,7 +269,7 @@ function renderNotes(search = searchInput.value) {
             (selectedStatus === "Shortlisted" ? note.shortlisted === true :
                 note.category === "Venue" && note.venueAvailability === selectedStatus);
 
-        return matchesSearch && matchesCategory && matchesStatus;
+        return matchesSearch && matchesCategory && matchesGuestEvent && matchesStatus;
 
     });
 
@@ -283,6 +320,7 @@ function renderNotes(search = searchInput.value) {
     filtered.forEach(note => {
 
         const badge = getBadgeClass(note.category);
+        const guestEvents = getGuestEventValues(note);
 
         const card = document.createElement("div");
 
@@ -315,6 +353,17 @@ function renderNotes(search = searchInput.value) {
             <i class="ri-group-fill"></i>
             ${note.guestCount} members
         </span>
+    ` : ""}
+
+    ${note.category === "Guests" && guestEvents.length ? `
+        <div class="guest-event-row">
+            ${guestEvents.map(event => `
+                <span class="guest-count-badge">
+                    <i class="ri-calendar-event-fill"></i>
+                    ${event}
+                </span>
+            `).join("")}
+        </div>
     ` : ""}
 
 </div>
@@ -391,6 +440,12 @@ filterStatus.addEventListener("change", () => {
 
 });
 
+filterGuestEvent.addEventListener("change", () => {
+
+    renderNotes();
+
+});
+
 categoryInput.addEventListener("change", updateVenueAvailabilityVisibility);
 
 // ======================================
@@ -410,6 +465,9 @@ saveButton.addEventListener("click", async () => {
     const guestCount = category === "Guests"
         ? Number(guestCountInput.value)
         : undefined;
+    const guestEvents = category === "Guests"
+        ? getGuestEventValues()
+        : [];
     const description = descriptionInput.value.trim();
 
     if (!title || !description) {
@@ -428,6 +486,14 @@ saveButton.addEventListener("click", async () => {
 
     }
 
+    if (category === "Guests" && guestEvents.length === 0) {
+
+        showToast("Please select at least one event for this guest note", "error");
+
+        return;
+
+    }
+
     const noteData = {
 
         title,
@@ -435,7 +501,8 @@ saveButton.addEventListener("click", async () => {
         description,
         venueAvailability,
         shortlisted,
-        guestCount
+        guestCount,
+        eventTypes: guestEvents
 
     };
 
@@ -493,6 +560,7 @@ function editNote(id) {
     venueAvailabilityInput.value = note.venueAvailability || "Available";
     shortlistsInput.checked = note.shortlisted === true;
     guestCountInput.value = note.guestCount || 1;
+    setGuestEventValues(getGuestEventValues(note));
     descriptionInput.value = note.description;
     updateVenueAvailabilityVisibility();
 
@@ -544,6 +612,7 @@ function clearForm() {
     venueAvailabilityInput.value = "Available";
     shortlistsInput.checked = false;
     guestCountInput.value = 1;
+    setGuestEventValues([]);
     updateVenueAvailabilityVisibility();
 
 }

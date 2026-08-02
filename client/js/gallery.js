@@ -26,6 +26,7 @@ const uploadImages = document.getElementById("uploadImages");
 
 const previewImage = document.getElementById("previewImage");
 const previewTitle = document.getElementById("previewTitle");
+const imageSelectionSummary = document.getElementById("imageSelectionSummary");
 
 const emptyFolders = document.getElementById("emptyFolders");
 const emptyGallery = document.getElementById("emptyGallery");
@@ -484,6 +485,18 @@ document.getElementById("uploadFirstImage").addEventListener("click", () => {
   uploadModal.show();
 });
 
+imageInput.addEventListener("change", () => {
+  const files = imageInput.files || [];
+
+  if (files.length === 0) {
+    imageSelectionSummary.textContent = "No images selected yet";
+    return;
+  }
+
+  const countLabel = files.length === 1 ? "1 image selected" : `${files.length} images selected`;
+  imageSelectionSummary.textContent = countLabel;
+});
+
 uploadImages.addEventListener("click", async () => {
   const folder = folderSelect.value;
 
@@ -502,11 +515,12 @@ uploadImages.addEventListener("click", async () => {
   }
 
   try {
+    const selectedFiles = Array.from(files || []);
     const formData = new FormData();
 
     formData.append("folderId", folder);
 
-    for (const file of files) {
+    for (const file of selectedFiles) {
       formData.append("images", file);
     }
 
@@ -521,10 +535,11 @@ uploadImages.addEventListener("click", async () => {
     );
 
     imageInput.value = "";
+    imageSelectionSummary.textContent = "No images selected yet";
 
     uploadModal.hide();
 
-    showToast("Images uploaded");
+    showToast(selectedFiles.length === 1 ? "Image uploaded" : `${selectedFiles.length} images uploaded`);
 
     await loadImages(currentFolder);
 

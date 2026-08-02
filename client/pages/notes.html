@@ -27,541 +27,318 @@
   </head>
 
   <body>
-
     <div class="wrapper">
-
-        <!-- ==========================================
+      <!-- ==========================================
                     SIDEBAR
         =========================================== -->
 
-        <aside class="sidebar">
+      <aside class="sidebar">
+        <div class="logo">💍 MB Wedding</div>
 
-            <div class="logo">
+        <ul>
+          <li>
+            <a href="dashboard.html">
+              <i class="ri-dashboard-fill"></i>
 
-                💍 MB Wedding
+              Dashboard
+            </a>
+          </li>
 
-            </div>
+          <li class="active">
+            <a href="notes.html">
+              <i class="ri-sticky-note-fill"></i>
 
-            <ul>
+              Notes
+            </a>
+          </li>
 
-                <li>
+          <li>
+            <a href="gallery.html">
+              <i class="ri-image-fill"></i>
 
-                    <a href="dashboard.html">
+              Gallery
+            </a>
+          </li>
+        </ul>
+      </aside>
 
-                        <i class="ri-dashboard-fill"></i>
-
-                        Dashboard
-
-                    </a>
-
-                </li>
-
-                <li class="active">
-
-                    <a href="notes.html">
-
-                        <i class="ri-sticky-note-fill"></i>
-
-                        Notes
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="expenses.html">
-
-                        <i class="ri-money-rupee-circle-fill"></i>
-
-                        Expenses
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="shopping.html">
-
-                        <i class="ri-shopping-bag-fill"></i>
-
-                        Shopping
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="gallery.html">
-
-                        <i class="ri-image-fill"></i>
-
-                        Gallery
-
-                    </a>
-
-                </li>
-
-            </ul>
-
-        </aside>
-
-        <!-- ==========================================
+      <!-- ==========================================
                     MAIN CONTENT
         =========================================== -->
 
-        <main class="content">
+      <main class="content">
+        <!-- HERO -->
 
-            <!-- HERO -->
+        <section class="notes-hero">
+          <div class="hero-left">
+            <span class="hero-tag"> 💍 MB Wedding Planner </span>
 
-            <section class="notes-hero">
+            <h1>Wedding Notes</h1>
 
-                <div class="hero-left">
+            <p>
+              Save venue details, vendor discussions, shopping ideas, rituals,
+              reminders and every important wedding memory in one beautiful
+              place.
+            </p>
+          </div>
 
-                    <span class="hero-tag">
+          <div class="hero-right">
+            <button class="btn btn-light btn-lg" id="openNoteModal">
+              <i class="ri-add-line"></i>
 
-                        💍 MB Wedding Planner
+              New Note
+            </button>
+          </div>
+        </section>
 
-                    </span>
+        <!-- STATS -->
 
-                    <h1>
+        <section class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="ri-sticky-note-fill"></i>
+            </div>
 
-                        Wedding Notes
+            <div>
+              <h2 id="totalNotes">0</h2>
 
-                    </h1>
+              <p>Total Notes</p>
+            </div>
+          </div>
 
-                    <p>
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="ri-map-pin-fill"></i>
+            </div>
 
-                        Save venue details, vendor discussions, shopping ideas,
-                        rituals, reminders and every important wedding memory
-                        in one beautiful place.
+            <div>
+              <h2 id="venueCount">0</h2>
 
-                    </p>
+              <p>Venue</p>
+            </div>
+          </div>
 
-                </div>
+          <div class="stat-card">
+            <div class="stat-icon pink">
+              <i class="ri-shopping-bag-fill"></i>
+            </div>
 
-                <div class="hero-right">
+            <div>
+              <h2 id="shoppingCount">0</h2>
 
-                    <button
-                        class="btn btn-light btn-lg"
-                        id="openNoteModal">
+              <p>Shopping</p>
+            </div>
+          </div>
 
-                        <i class="ri-add-line"></i>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="ri-money-rupee-fill"></i>
+            </div>
 
-                        New Note
+            <div>
+              <h2 id="budgetCount">0</h2>
 
-                    </button>
+              <p>Budget</p>
+            </div>
+          </div>
+        </section>
 
-                </div>
+        <!-- TOOLBAR -->
 
-            </section>
+        <section class="notes-toolbar">
+          <div class="search-box">
+            <i class="ri-search-line"></i>
 
-            <!-- STATS -->
+            <input type="text" id="search" placeholder="Search notes..." />
+          </div>
 
-            <section class="stats-grid">
+          <select id="filterCategory" class="form-select">
+            <option value="">All Categories</option>
 
-                <div class="stat-card">
+            <option>Venue</option>
 
-                    <div class="stat-icon purple">
+            <option>Shopping</option>
 
-                        <i class="ri-sticky-note-fill"></i>
+            <option>Budget</option>
 
-                    </div>
+            <option>Guests</option>
 
-                    <div>
+            <option>Pooja</option>
 
-                        <h2 id="totalNotes">
+            <option>Vendor</option>
 
-                            0
+            <option>Other</option>
+          </select>
 
-                        </h2>
+          <select id="filterStatus" class="form-select">
+            <option value="">All Status</option>
 
-                        <p>Total Notes</p>
+            <option value="Available">Available</option>
 
-                    </div>
+            <option value="Not Available">Not Available</option>
 
-                </div>
+            <option value="Shortlisted">Shortlisted</option>
+          </select>
 
-                <div class="stat-card">
+          <select id="filterGuestEvent" class="form-select">
+            <option value="">All Guest Events</option>
 
-                    <div class="stat-icon blue">
+            <option value="Engagement">Engagement</option>
 
-                        <i class="ri-map-pin-fill"></i>
+            <option value="Haldi & Mehendi">Haldi & Mehendi</option>
 
-                    </div>
+            <option value="Wedding">Wedding</option>
+          </select>
+        </section>
 
-                    <div>
+        <!-- NOTES GRID -->
 
-                        <h2 id="venueCount">
-
-                            0
-
-                        </h2>
-
-                        <p>Venue</p>
-
-                    </div>
-
-                </div>
-
-                <div class="stat-card">
-
-                    <div class="stat-icon pink">
-
-                        <i class="ri-shopping-bag-fill"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h2 id="shoppingCount">
-
-                            0
-
-                        </h2>
-
-                        <p>Shopping</p>
-
-                    </div>
-
-                </div>
-
-                <div class="stat-card">
-
-                    <div class="stat-icon green">
-
-                        <i class="ri-money-rupee-fill"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h2 id="budgetCount">
-
-                            0
-
-                        </h2>
-
-                        <p>Budget</p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- TOOLBAR -->
-
-            <section class="notes-toolbar">
-
-                <div class="search-box">
-
-                    <i class="ri-search-line"></i>
-
-                    <input
-                        type="text"
-                        id="search"
-                        placeholder="Search notes...">
-
-                </div>
-
-                <select
-                    id="filterCategory"
-                    class="form-select">
-
-                    <option value="">
-
-                        All Categories
-
-                    </option>
-
-                    <option>
-
-                        Venue
-
-                    </option>
-
-                    <option>
-
-                        Shopping
-
-                    </option>
-
-                    <option>
-
-                        Budget
-
-                    </option>
-
-                    <option>
-
-                        Guests
-
-                    </option>
-
-                    <option>
-
-                        Pooja
-
-                    </option>
-
-                    <option>
-
-                        Vendor
-
-                    </option>
-
-                    <option>
-
-                        Other
-
-                    </option>
-
-                </select>
-
-                <select
-                    id="filterStatus"
-                    class="form-select">
-
-                    <option value="">
-
-                        All Status
-
-                    </option>
-
-                    <option value="Available">
-
-                        Available
-
-                    </option>
-
-                    <option value="Not Available">
-
-                        Not Available
-
-                    </option>
-
-                    <option value="Shortlisted">
-
-                        Shortlisted
-
-                    </option>
-
-                </select>
-
-            </section>
-
-            <!-- NOTES GRID -->
-
-            <section
-                id="notesContainer"
-                class="notes-grid">
-
-            </section>
-            <!-- ==========================================
+        <section id="notesContainer" class="notes-grid"></section>
+        <!-- ==========================================
                     ADD / EDIT NOTE MODAL
             =========================================== -->
 
-            <div
-                class="modal fade"
-                id="noteModal"
-                tabindex="-1"
-                aria-hidden="true">
-
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-
-                            <div>
-
-                                <h4 class="modal-title">
-
-                                    <i class="ri-sticky-note-fill"></i>
-
-                                    Wedding Note
-
-                                </h4>
-
-                                <p class="mb-0">
-
-                                    Save every important wedding detail.
-
-                                </p>
-
-                            </div>
-
-                            <button
-                                class="btn-close"
-                                data-bs-dismiss="modal">
-
-                            </button>
-
-                        </div>
-
-                        <div class="modal-body">
-
-                            <div class="row">
-
-                                <div class="col-md-6 mb-3">
-
-                                    <label class="form-label">
-
-                                        Note Title
-
-                                    </label>
-
-                                    <input
-                                        id="title"
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Example : Jaipur Palace Visit">
-
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-
-                                    <label class="form-label">
-
-                                        Category
-
-                                    </label>
-
-                                    <select
-                                        id="category"
-                                        class="form-select">
-
-                                        <option>Venue</option>
-
-                                        <option>Shopping</option>
-
-                                        <option>Budget</option>
-
-                                        <option>Guests</option>
-
-                                        <option>Pooja</option>
-
-                                        <option>Vendor</option>
-
-                                        <option>Other</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-6 mb-3" id="venueAvailabilityGroup">
-
-                                    <label class="form-label" for="venueAvailability">
-
-                                        Venue Availability
-
-                                    </label>
-
-                                    <select
-                                        id="venueAvailability"
-                                        class="form-select">
-
-                                        <option value="Available">Available</option>
-
-                                        <option value="Not Available">Not Available</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-6 mb-3" id="shortlistGroup" hidden>
-
-                                    <div class="form-check shortlist-check">
-
-                                        <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            id="shortlisted">
-
-                                        <label
-                                            class="form-check-label"
-                                            for="shortlisted">
-
-                                            Mark as shortlist
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6 mb-3" id="guestCountGroup" hidden>
-
-                                    <label class="form-label" for="guestCount">
-
-                                        Family Members
-
-                                    </label>
-
-                                    <input
-                                        id="guestCount"
-                                        type="number"
-                                        class="form-control"
-                                        min="1"
-                                        step="1"
-                                        value="1"
-                                        placeholder="Example: 5">
-
-                                </div>
-
-                                <div class="col-12">
-
-                                    <label class="form-label">
-
-                                        Description
-
-                                    </label>
-
-                                    <textarea
-                                        id="description"
-                                        rows="7"
-                                        class="form-control"
-                                        placeholder="Write your wedding note here..."></textarea>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-
-                            <button
-                                class="btn btn-light"
-                                data-bs-dismiss="modal">
-
-                                Cancel
-
-                            </button>
-
-                            <button
-                                id="saveNote"
-                                class="btn btn-primary">
-
-                                <i class="ri-save-fill"></i>
-
-                                Save Note
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
+        <div class="modal fade" id="noteModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div>
+                  <h4 class="modal-title">
+                    <i class="ri-sticky-note-fill"></i>
+
+                    Wedding Note
+                  </h4>
+
+                  <p class="mb-0">Save every important wedding detail.</p>
                 </div>
 
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Note Title </label>
+
+                    <input
+                      id="title"
+                      type="text"
+                      class="form-control"
+                      placeholder="Example : Jaipur Palace Visit"
+                    />
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Category </label>
+
+                    <select id="category" class="form-select">
+                      <option>Venue</option>
+
+                      <option>Shopping</option>
+
+                      <option>Budget</option>
+
+                      <option>Guests</option>
+
+                      <option>Pooja</option>
+
+                      <option>Vendor</option>
+
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3" id="venueAvailabilityGroup">
+                    <label class="form-label" for="venueAvailability">
+                      Venue Availability
+                    </label>
+
+                    <select id="venueAvailability" class="form-select">
+                      <option value="Available">Available</option>
+
+                      <option value="Not Available">Not Available</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3" id="shortlistGroup" hidden>
+                    <div class="form-check shortlist-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="shortlisted"
+                      />
+
+                      <label class="form-check-label" for="shortlisted">
+                        Mark as shortlist
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3" id="guestCountGroup" hidden>
+                    <label class="form-label" for="guestCount">
+                      Family Members
+                    </label>
+
+                    <input
+                      id="guestCount"
+                      type="number"
+                      class="form-control"
+                      min="1"
+                      step="1"
+                      value="1"
+                      placeholder="Example: 5"
+                    />
+                  </div>
+
+                  <div class="col-md-6 mb-3" id="guestEventGroup" hidden>
+                    <label class="form-label">Guest Events</label>
+
+                    <div id="guestEventOptions" class="d-flex flex-column gap-2">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="guestEventEngagement" value="Engagement" />
+                        <label class="form-check-label" for="guestEventEngagement">Engagement</label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="guestEventHaldi" value="Haldi & Mehendi" />
+                        <label class="form-check-label" for="guestEventHaldi">Haldi & Mehendi</label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="guestEventWedding" value="Wedding" />
+                        <label class="form-check-label" for="guestEventWedding">Wedding</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label"> Description </label>
+
+                    <textarea
+                      id="description"
+                      rows="7"
+                      class="form-control"
+                      placeholder="Write your wedding note here..."
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+
+                <button id="saveNote" class="btn btn-primary">
+                  <i class="ri-save-fill"></i>
+
+                  Save Note
+                </button>
+              </div>
             </div>
-
-        </main>
-
+          </div>
+        </div>
+      </main>
     </div>
 
     <!-- Bootstrap JS -->
@@ -573,7 +350,5 @@
     <script src="../js/api.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/notes.js"></script>
-
-</body>
-
+  </body>
 </html>
