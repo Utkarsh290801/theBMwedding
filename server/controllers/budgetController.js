@@ -5,43 +5,27 @@ const Budget = require("../models/Budget");
 // ======================================
 
 exports.getBudget = async (req, res) => {
+  try {
+    let budget = await Budget.findOne();
 
-    try {
-
-        let budget = await Budget.findOne();
-
-        if (!budget) {
-
-            budget = await Budget.create({
-
-                totalBudget: 0
-
-            });
-
-        }
-
-        res.json({
-
-            success: true,
-
-            totalBudget: budget.totalBudget
-
-        });
-
+    if (!budget) {
+      budget = await Budget.create({
+        totalBudget: 0,
+      });
     }
 
-    catch (error) {
+    res.json({
+      success: true,
 
-        res.status(500).json({
+      totalBudget: budget.totalBudget,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
 
-            success: false,
-
-            message: error.message
-
-        });
-
-    }
-
+      message: error.message,
+    });
+  }
 };
 
 // ======================================
@@ -49,41 +33,27 @@ exports.getBudget = async (req, res) => {
 // ======================================
 
 exports.saveBudget = async (req, res) => {
+  try {
+    let budget = await Budget.findOne();
 
-    try {
-
-        let budget = await Budget.findOne();
-
-        if (!budget) {
-
-            budget = new Budget();
-
-        }
-
-        budget.totalBudget = req.body.totalBudget;
-
-        await budget.save();
-
-        res.json({
-
-            success: true,
-
-            data: budget
-
-        });
-
+    if (!budget) {
+      budget = new Budget();
     }
 
-    catch (error) {
+    budget.totalBudget = req.body.totalBudget;
 
-        res.status(500).json({
+    await budget.save();
 
-            success: false,
+    res.json({
+      success: true,
 
-            message: error.message
+      data: budget,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
 
-        });
-
-    }
-
+      message: error.message,
+    });
+  }
 };

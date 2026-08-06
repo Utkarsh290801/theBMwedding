@@ -11,29 +11,15 @@ const upload = require("../middleware/uploadExpense");
 // ======================================
 
 // Get All Expenses
-router.get(
-    "/",
-    expenseController.getExpenses
-);
+router.get("/", expenseController.getExpenses);
 
 // Add Expense
-router.post(
-    "/",
-    upload.single("receipt"),
-    expenseController.addExpense
-);
+router.post("/", upload.single("receipt"), expenseController.addExpense);
 
 // Update Expense
-router.put(
-    "/:id",
-    upload.single("receipt"),
-    expenseController.updateExpense
-);
+router.put("/:id", upload.single("receipt"), expenseController.updateExpense);
 
 // Delete Expense
-router.delete(
-    "/:id",
-    expenseController.deleteExpense
-);
+router.delete("/:id", expenseController.deleteExpense);
 
 module.exports = router;

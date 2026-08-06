@@ -3,10 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getNotes,
-    createNote,
-    updateNote,
-    deleteNote
+  getNotes,
+  createNote,
+  updateNote,
+  deleteNote,
 } = require("../controllers/noteController");
 
 router.get("/", getNotes);

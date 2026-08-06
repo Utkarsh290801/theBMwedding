@@ -14,10 +14,11 @@ connectDB();
 app.use(cors());
 
 app.use(express.json());
-const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const isServerless =
+  !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
 const uploadStaticPath = isServerless
-    ? path.join(os.tmpdir(), "uploads")
-    : path.join(__dirname, "uploads");
+  ? path.join(os.tmpdir(), "uploads")
+  : path.join(__dirname, "uploads");
 app.use("/uploads", express.static(uploadStaticPath));
 const noteRoutes = require("./routes/noteRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
@@ -29,15 +30,15 @@ app.use("/expenses", expenseRoutes);
 
 app.use("/budget", budgetRoutes);
 app.get("/", (req, res) => {
-    res.send("MB Wedding API Running");
+  res.send("MB Wedding API Running");
 });
 
 const PORT = process.env.PORT || 5000;
 
 if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
 
 module.exports = app;

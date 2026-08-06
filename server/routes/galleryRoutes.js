@@ -10,44 +10,26 @@ const upload = require("../middleware/uploadGallery");
 // Folder Routes
 // ======================================
 
-router.get(
-    "/folders",
-    galleryController.getFolders
-);
+router.get("/folders", galleryController.getFolders);
 
-router.post(
-    "/folders",
-    galleryController.createFolder
-);
+router.post("/folders", galleryController.createFolder);
 
-router.delete(
-    "/folders/:id",
-    galleryController.deleteFolder
-);
+router.delete("/folders/:id", galleryController.deleteFolder);
 
 // ======================================
 // Image Routes
 // ======================================
 
-router.get(
-    "/images",
-    galleryController.getImages
-);
+router.get("/images", galleryController.getImages);
 
 router.post(
-    "/upload",
-    upload.array("images", 100),
-    galleryController.uploadImages
+  "/upload",
+  upload.array("images", 100),
+  galleryController.uploadImages,
 );
 
-router.put(
-    "/image/:id/shortlist",
-    galleryController.toggleShortlist
-);
+router.put("/image/:id/shortlist", galleryController.toggleShortlist);
 
-router.delete(
-    "/image/:id",
-    galleryController.deleteImage
-);
+router.delete("/image/:id", galleryController.deleteImage);
 
 module.exports = router;

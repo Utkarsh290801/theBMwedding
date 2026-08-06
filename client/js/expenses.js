@@ -164,86 +164,51 @@ function updateStatistics() {
 // ======================================
 
 function renderExpenses() {
+  expenseTableBody.innerHTML = "";
 
-    expenseTableBody.innerHTML = "";
+  const search = searchExpense.value.toLowerCase();
 
-    const search = searchExpense.value.toLowerCase();
+  const category = filterCategory.value;
 
-    const category = filterCategory.value;
+  const status = filterStatus.value;
 
-    const status = filterStatus.value;
+  const payment = filterPayment.value;
 
-    const payment = filterPayment.value;
+  const filtered = expenses.filter((expense) => {
+    const matchSearch =
+      expense.vendor.toLowerCase().includes(search) ||
+      expense.description.toLowerCase().includes(search);
 
-    const filtered = expenses.filter(expense => {
+    const matchCategory = !category || expense.category === category;
 
-        const matchSearch =
+    const matchStatus = !status || expense.status === status;
 
-            expense.vendor.toLowerCase().includes(search) ||
+    const matchPayment = !payment || expense.paymentMethod === payment;
 
-            expense.description.toLowerCase().includes(search);
+    return matchSearch && matchCategory && matchStatus && matchPayment;
+  });
 
-        const matchCategory =
+  // -------------------------
+  // Empty State
+  // -------------------------
 
-            !category ||
+  if (filtered.length === 0) {
+    emptyExpenses.classList.remove("d-none");
 
-            expense.category === category;
+    return;
+  }
 
-        const matchStatus =
+  emptyExpenses.classList.add("d-none");
 
-            !status ||
+  // -------------------------
+  // Rows
+  // -------------------------
 
-            expense.status === status;
+  filtered.forEach((expense) => {
+    const statusClass =
+      expense.status === "Paid" ? "status-paid" : "status-pending";
 
-        const matchPayment =
-
-            !payment ||
-
-            expense.paymentMethod === payment;
-
-        return (
-
-            matchSearch &&
-
-            matchCategory &&
-
-            matchStatus &&
-
-            matchPayment
-
-        );
-
-    });
-
-    // -------------------------
-    // Empty State
-    // -------------------------
-
-    if (filtered.length === 0) {
-
-        emptyExpenses.classList.remove("d-none");
-
-        return;
-
-    }
-
-    emptyExpenses.classList.add("d-none");
-
-    // -------------------------
-    // Rows
-    // -------------------------
-
-    filtered.forEach(expense => {
-
-        const statusClass =
-
-            expense.status === "Paid"
-
-            ? "status-paid"
-
-            : "status-pending";
-
-        expenseTableBody.innerHTML += `
+    expenseTableBody.innerHTML += `
 
         <tr>
 
@@ -303,11 +268,9 @@ function renderExpenses() {
 
             <td>
 
-                ${expense.receiptUrl
-
-                    ?
-
-                    `<a
+                ${
+                  expense.receiptUrl
+                    ? `<a
 
                         href="${expense.receiptUrl}"
 
@@ -318,10 +281,8 @@ function renderExpenses() {
                         <i class="ri-file-download-line"></i>
 
                     </a>`
-
-                    :
-
-                    "-"}
+                    : "-"
+                }
 
             </td>
 
@@ -352,44 +313,34 @@ function renderExpenses() {
         </tr>
 
         `;
-
-    });
-
+  });
 }
 // ======================================
 // Search & Filters
 // ======================================
 
 searchExpense.addEventListener(
+  "input",
 
-    "input",
-
-    renderExpenses
-
+  renderExpenses,
 );
 
 filterCategory.addEventListener(
+  "change",
 
-    "change",
-
-    renderExpenses
-
+  renderExpenses,
 );
 
 filterStatus.addEventListener(
+  "change",
 
-    "change",
-
-    renderExpenses
-
+  renderExpenses,
 );
 
 filterPayment.addEventListener(
+  "change",
 
-    "change",
-
-    renderExpenses
-
+  renderExpenses,
 );
 
 // ======================================
@@ -397,18 +348,16 @@ filterPayment.addEventListener(
 // ======================================
 
 addExpenseBtn.addEventListener("click", () => {
+  editingExpense = null;
 
-    editingExpense = null;
+  clearExpenseForm();
 
-    clearExpenseForm();
-
-    document.getElementById("expenseModalTitle").innerHTML = `
+  document.getElementById("expenseModalTitle").innerHTML = `
         <i class="ri-money-rupee-circle-fill"></i>
         Add Expense
     `;
 
-    expenseModal.show();
-
+  expenseModal.show();
 });
 
 // ======================================
@@ -416,157 +365,123 @@ addExpenseBtn.addEventListener("click", () => {
 // ======================================
 
 saveExpense.addEventListener("click", async () => {
+  const category = document.getElementById("expenseCategory").value.trim();
+  const vendor = document.getElementById("expenseVendor").value.trim();
+  const amountValue = document.getElementById("expenseAmount").value.trim();
+  const description = document
+    .getElementById("expenseDescription")
+    .value.trim();
+  const dateValue = document.getElementById("expenseDate").value;
+  const paymentMethod = document.getElementById("paymentMethod").value;
+  const status = document.getElementById("expenseStatus").value;
+  const notes = document.getElementById("expenseNotes").value.trim();
 
-    const category = document.getElementById("expenseCategory").value.trim();
-    const vendor = document.getElementById("expenseVendor").value.trim();
-    const amountValue = document.getElementById("expenseAmount").value.trim();
-    const description = document.getElementById("expenseDescription").value.trim();
-    const dateValue = document.getElementById("expenseDate").value;
-    const paymentMethod = document.getElementById("paymentMethod").value;
-    const status = document.getElementById("expenseStatus").value;
-    const notes = document.getElementById("expenseNotes").value.trim();
+  if (!category || !vendor || !amountValue) {
+    showToast("Please fill category, vendor, and amount", "error");
+    return;
+  }
 
-    if (!category || !vendor || !amountValue) {
-        showToast("Please fill category, vendor, and amount", "error");
-        return;
+  const amount = Number(amountValue);
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    showToast("Please enter a valid amount", "error");
+    return;
+  }
+
+  const formData = new FormData();
+
+  formData.append("category", category);
+  formData.append("vendor", vendor);
+  formData.append("description", description);
+  formData.append("amount", String(amount));
+  formData.append("date", dateValue || new Date().toISOString().slice(0, 10));
+  formData.append("paymentMethod", paymentMethod);
+  formData.append("status", status);
+  formData.append("notes", notes);
+
+  const receipt = document.getElementById("expenseReceipt").files[0];
+
+  if (receipt) {
+    formData.append("receipt", receipt);
+  }
+
+  try {
+    if (editingExpense) {
+      await API.put(
+        `/expenses/${editingExpense}`,
+
+        formData,
+
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      showToast("Expense Updated");
+    } else {
+      await API.post(
+        "/expenses",
+
+        formData,
+
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      showToast("Expense Added");
     }
 
-    const amount = Number(amountValue);
+    expenseModal.hide();
 
-    if (!Number.isFinite(amount) || amount <= 0) {
-        showToast("Please enter a valid amount", "error");
-        return;
-    }
+    clearExpenseForm();
 
-    const formData = new FormData();
+    editingExpense = null;
 
-    formData.append("category", category);
-    formData.append("vendor", vendor);
-    formData.append("description", description);
-    formData.append("amount", String(amount));
-    formData.append("date", dateValue || new Date().toISOString().slice(0, 10));
-    formData.append("paymentMethod", paymentMethod);
-    formData.append("status", status);
-    formData.append("notes", notes);
+    loadExpenses();
+  } catch (error) {
+    console.error(error);
 
-    const receipt = document.getElementById("expenseReceipt").files[0];
-
-    if (receipt) {
-        formData.append("receipt", receipt);
-    }
-
-    try {
-
-        if (editingExpense) {
-
-            await API.put(
-
-                `/expenses/${editingExpense}`,
-
-                formData,
-
-                {
-
-                    headers: {
-
-                        "Content-Type": "multipart/form-data"
-
-                    }
-
-                }
-
-            );
-
-            showToast("Expense Updated");
-
-        }
-
-        else {
-
-            await API.post(
-
-                "/expenses",
-
-                formData,
-
-                {
-
-                    headers: {
-
-                        "Content-Type": "multipart/form-data"
-
-                    }
-
-                }
-
-            );
-
-            showToast("Expense Added");
-
-        }
-
-        expenseModal.hide();
-
-        clearExpenseForm();
-
-        editingExpense = null;
-
-        loadExpenses();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        showToast("Failed to save expense", "error");
-
-    }
-
+    showToast("Failed to save expense", "error");
+  }
 });
 // ======================================
 // Edit Expense
 // ======================================
 
 function editExpense(id) {
+  const expense = expenses.find((item) => item._id === id);
 
-    const expense = expenses.find(
+  if (!expense) return;
 
-        item => item._id === id
+  editingExpense = id;
 
-    );
+  document.getElementById("expenseCategory").value = expense.category;
 
-    if (!expense) return;
+  document.getElementById("expenseVendor").value = expense.vendor;
 
-    editingExpense = id;
+  document.getElementById("expenseDescription").value = expense.description;
 
-    document.getElementById("expenseCategory").value = expense.category;
+  document.getElementById("expenseAmount").value = expense.amount;
 
-    document.getElementById("expenseVendor").value = expense.vendor;
+  document.getElementById("expenseDate").value = expense.date.substring(0, 10);
 
-    document.getElementById("expenseDescription").value = expense.description;
+  document.getElementById("paymentMethod").value = expense.paymentMethod;
 
-    document.getElementById("expenseAmount").value = expense.amount;
+  document.getElementById("expenseStatus").value = expense.status;
 
-    document.getElementById("expenseDate").value =
-        expense.date.substring(0, 10);
+  document.getElementById("expenseNotes").value = expense.notes || "";
 
-    document.getElementById("paymentMethod").value =
-        expense.paymentMethod;
-
-    document.getElementById("expenseStatus").value =
-        expense.status;
-
-    document.getElementById("expenseNotes").value =
-        expense.notes || "";
-
-    document.getElementById("expenseModalTitle").innerHTML = `
+  document.getElementById("expenseModalTitle").innerHTML = `
         <i class="ri-edit-fill"></i>
         Update Expense
     `;
 
-    expenseModal.show();
-
+  expenseModal.show();
 }
 
 // ======================================
@@ -574,64 +489,42 @@ function editExpense(id) {
 // ======================================
 
 async function deleteExpense(id) {
+  if (!confirm("Delete this expense?")) return;
 
-    if (
+  try {
+    await API.delete(`/expenses/${id}`);
 
-        !confirm(
+    showToast("Expense Deleted");
 
-            "Delete this expense?"
+    loadExpenses();
+  } catch (error) {
+    console.error(error);
 
-        )
-
-    ) return;
-
-    try {
-
-        await API.delete(
-
-            `/expenses/${id}`
-
-        );
-
-        showToast("Expense Deleted");
-
-        loadExpenses();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        showToast("Delete Failed", "error");
-
-    }
-
+    showToast("Delete Failed", "error");
+  }
 }
 // ======================================
 // Clear Form
 // ======================================
 
 function clearExpenseForm() {
+  document.getElementById("expenseCategory").selectedIndex = 0;
 
-    document.getElementById("expenseCategory").selectedIndex = 0;
+  document.getElementById("expenseVendor").value = "";
 
-    document.getElementById("expenseVendor").value = "";
+  document.getElementById("expenseDescription").value = "";
 
-    document.getElementById("expenseDescription").value = "";
+  document.getElementById("expenseAmount").value = "";
 
-    document.getElementById("expenseAmount").value = "";
+  document.getElementById("expenseDate").value = "";
 
-    document.getElementById("expenseDate").value = "";
+  document.getElementById("paymentMethod").selectedIndex = 0;
 
-    document.getElementById("paymentMethod").selectedIndex = 0;
+  document.getElementById("expenseStatus").selectedIndex = 0;
 
-    document.getElementById("expenseStatus").selectedIndex = 0;
+  document.getElementById("expenseNotes").value = "";
 
-    document.getElementById("expenseNotes").value = "";
-
-    document.getElementById("expenseReceipt").value = "";
-
+  document.getElementById("expenseReceipt").value = "";
 }
 
 // ======================================
@@ -639,11 +532,9 @@ function clearExpenseForm() {
 // ======================================
 
 setBudgetBtn.addEventListener("click", () => {
+  document.getElementById("budgetInput").value = budget;
 
-    document.getElementById("budgetInput").value = budget;
-
-    budgetModal.show();
-
+  budgetModal.show();
 });
 
 // ======================================
@@ -652,37 +543,28 @@ setBudgetBtn.addEventListener("click", () => {
 
 document
 
-.getElementById("expenseModal")
+  .getElementById("expenseModal")
 
-.addEventListener(
-
+  .addEventListener(
     "hidden.bs.modal",
 
     () => {
+      editingExpense = null;
 
-        editingExpense = null;
-
-        clearExpenseForm();
-
-    }
-
-);
+      clearExpenseForm();
+    },
+  );
 
 // ======================================
 // Initialize
 // ======================================
 
 document.addEventListener(
+  "DOMContentLoaded",
 
-    "DOMContentLoaded",
+  async () => {
+    await loadBudget();
 
-    async () => {
-
-        await loadBudget();
-
-        await loadExpenses();
-
-    }
-
+    await loadExpenses();
+  },
 );
-

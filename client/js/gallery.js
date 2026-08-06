@@ -101,7 +101,7 @@ async function loadImages(folderId = "") {
 function getFilteredImages() {
   const query = searchInput.value.trim().toLowerCase();
   if (!query) return images;
-  return images.filter(image => {
+  return images.filter((image) => {
     const name = (image.fileName || "").toLowerCase();
     const folder = getFolderName(image.folderId).toLowerCase();
     return name.includes(query) || folder.includes(query);
@@ -109,7 +109,9 @@ function getFilteredImages() {
 }
 
 function renderGallery(filteredImages) {
-  const displayImages = Array.isArray(filteredImages) ? filteredImages : getFilteredImages();
+  const displayImages = Array.isArray(filteredImages)
+    ? filteredImages
+    : getFilteredImages();
   galleryContainer.innerHTML = "";
 
   if (displayImages.length === 0) {
@@ -386,18 +388,18 @@ function renderFolders() {
       openFolder(folder._id);
     });
 
-    const openBtn = card.querySelector('.open-folder-btn');
+    const openBtn = card.querySelector(".open-folder-btn");
     if (openBtn) {
-      openBtn.addEventListener('click', (e) => {
+      openBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         openFolder(openBtn.dataset.id);
       });
     }
 
     // Attach proper delete handler that stops propagation
-    const delBtn = card.querySelector('.delete-folder-btn');
+    const delBtn = card.querySelector(".delete-folder-btn");
     if (delBtn) {
-      delBtn.addEventListener('click', (e) => {
+      delBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         deleteFolder(delBtn.dataset.id);
       });
@@ -493,7 +495,8 @@ imageInput.addEventListener("change", () => {
     return;
   }
 
-  const countLabel = files.length === 1 ? "1 image selected" : `${files.length} images selected`;
+  const countLabel =
+    files.length === 1 ? "1 image selected" : `${files.length} images selected`;
   imageSelectionSummary.textContent = countLabel;
 });
 
@@ -539,7 +542,11 @@ uploadImages.addEventListener("click", async () => {
 
     uploadModal.hide();
 
-    showToast(selectedFiles.length === 1 ? "Image uploaded" : `${selectedFiles.length} images uploaded`);
+    showToast(
+      selectedFiles.length === 1
+        ? "Image uploaded"
+        : `${selectedFiles.length} images uploaded`,
+    );
 
     await loadImages(currentFolder);
 
@@ -639,7 +646,9 @@ const folderSection = document.querySelector(".folder-section");
 const gallerySection = document.querySelector(".gallery-section");
 
 function setActiveToolbarButton(btn) {
-  document.querySelectorAll(".toolbar-right .btn").forEach(b => b.classList.remove("active"));
+  document
+    .querySelectorAll(".toolbar-right .btn")
+    .forEach((b) => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
 }
 
@@ -662,12 +671,13 @@ function showShortlistedView() {
   folderSection.classList.add("d-none");
   gallerySection.classList.remove("d-none");
   setActiveToolbarButton(showShortlistedBtn);
-  renderGallery(images.filter(i => i.shortlisted));
+  renderGallery(images.filter((i) => i.shortlisted));
 }
 
 if (showFoldersBtn) showFoldersBtn.addEventListener("click", showFoldersView);
 if (showGalleryBtn) showGalleryBtn.addEventListener("click", showGalleryView);
-if (showShortlistedBtn) showShortlistedBtn.addEventListener("click", showShortlistedView);
+if (showShortlistedBtn)
+  showShortlistedBtn.addEventListener("click", showShortlistedView);
 
 // Default to gallery view on load
 document.addEventListener("DOMContentLoaded", showGalleryView);

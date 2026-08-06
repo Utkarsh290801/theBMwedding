@@ -1,18 +1,15 @@
 const mongoose = require("mongoose");
 
 const budgetSchema = new mongoose.Schema(
-    {
-        totalBudget: {
-            type: Number,
-            default: 0
-        }
+  {
+    totalBudget: {
+      type: Number,
+      default: 0,
     },
-    {
-        timestamps: true
-    }
+  },
+  {
+    timestamps: true,
+  },
 );
 
-module.exports = mongoose.model(
-    "Budget",
-    budgetSchema
-);
+module.exports = mongoose.model("Budget", budgetSchema);

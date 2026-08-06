@@ -9,15 +9,9 @@ const budgetController = require("../controllers/budgetController");
 // ======================================
 
 // Get Budget
-router.get(
-    "/",
-    budgetController.getBudget
-);
+router.get("/", budgetController.getBudget);
 
 // Save / Update Budget
-router.post(
-    "/",
-    budgetController.saveBudget
-);
+router.post("/", budgetController.saveBudget);
 
 module.exports = router;

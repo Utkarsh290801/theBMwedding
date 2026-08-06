@@ -1,89 +1,89 @@
 /* Toast */
 
-.toast-message{
+.toast-message {
 
-position:fixed;
+    position: fixed;
 
-right:30px;
+    right: 30px;
 
-bottom:30px;
+    bottom: 30px;
 
-background:#7c5cff;
+    background: #7c5cff;
 
-color:white;
+    color: white;
 
-padding:14px 24px;
+    padding: 14px 24px;
 
-border-radius:12px;
+    border-radius: 12px;
 
-opacity:0;
+    opacity: 0;
 
-transform:translateY(30px);
+    transform: translateY(30px);
 
-transition:.3s;
+    transition: .3s;
 
-z-index:9999;
+    z-index: 9999;
 
-box-shadow:0 12px 30px rgba(0,0,0,.15);
-
-}
-
-.toast-message.show{
-
-opacity:1;
-
-transform:translateY(0);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
 
 }
 
-.toast-message.error{
+.toast-message.show {
 
-background:#ff4d4f;
+    opacity: 1;
+
+    transform: translateY(0);
 
 }
 
-.toast-message.success{
+.toast-message.error {
 
-background:#22c55e;
+    background: #ff4d4f;
+
+}
+
+.toast-message.success {
+
+    background: #22c55e;
 
 }
 
 /* Common Buttons */
 
-.btn-primary{
+.btn-primary {
 
-background:linear-gradient(135deg,#7c5cff,#ff6ea8);
+    background: linear-gradient(135deg, #7c5cff, #ff6ea8);
 
-border:none;
+    border: none;
 
-border-radius:30px;
+    border-radius: 30px;
 
-padding:12px 24px;
+    padding: 12px 24px;
 
-font-weight:600;
+    font-weight: 600;
 
 }
 
 /* Empty State */
 
-.empty-state{
+.empty-state {
 
-text-align:center;
+    text-align: center;
 
-padding:70px 20px;
+    padding: 70px 20px;
 
-color:#888;
+    color: #888;
 
 }
 
-.empty-state i{
+.empty-state i {
 
-font-size:70px;
+    font-size: 70px;
 
-margin-bottom:15px;
+    margin-bottom: 15px;
 
-display:block;
+    display: block;
 
-color:#7c5cff;
+    color: #7c5cff;
 
 }
