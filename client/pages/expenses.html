@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Wedding Expenses</title>
+
+    <!-- Bootstrap -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Remix Icons -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Font -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../css/theme.css" />
+
+    <link rel="stylesheet" href="../css/common.css" />
+
+    <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <link rel="stylesheet" href="../css/expenses.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+
+      <aside class="sidebar">
+        <div class="logo">💍 BM Wedding</div>
+
+        <ul>
+          <li>
+            <a href="dashboard.html">
+              <i class="ri-dashboard-fill"></i>
+
+              Dashboard
+            </a>
+          </li>
+
+          <li>
+            <a href="notes.html">
+              <i class="ri-sticky-note-fill"></i>
+
+              Notes
+            </a>
+          </li>
+
+          <li class="active">
+            <a href="expenses.html">
+              <i class="ri-money-rupee-circle-fill"></i>
+
+              Expenses
+            </a>
+          </li>
+
+          <li>
+            <a href="shopping.html">
+              <i class="ri-shopping-bag-fill"></i>
+
+              Shopping
+            </a>
+          </li>
+
+          <li>
+            <a href="gallery.html">
+              <i class="ri-image-fill"></i>
+
+              Gallery
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main -->
+
+      <main class="content">
+        <!-- HERO -->
+
+        <section class="expense-hero">
+          <div class="hero-left">
+            <span class="hero-badge"> 💰 Wedding Budget Manager </span>
+
+            <h1>Expenses & Budget</h1>
+
+            <p>
+              Keep track of every wedding expense, monitor your budget and stay
+              financially organized.
+            </p>
+          </div>
+
+          <div class="hero-right">
+            <button class="btn btn-light" id="setBudgetBtn">
+              <i class="ri-wallet-3-line"></i>
+
+              Set Budget
+            </button>
+
+            <button class="btn btn-gradient" id="addExpenseBtn">
+              <i class="ri-add-line"></i>
+
+              Add Expense
+            </button>
+          </div>
+        </section>
+        <!-- ==========================================
+             Statistics
+        =========================================== -->
+
+        <section class="expense-stats">
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="ri-wallet-3-fill"></i>
+            </div>
+
+            <div>
+              <h2 id="totalBudget">₹0</h2>
+
+              <p>Total Budget</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon red">
+              <i class="ri-arrow-up-circle-fill"></i>
+            </div>
+
+            <div>
+              <h2 id="totalSpent">₹0</h2>
+
+              <p>Total Spent</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="ri-safe-2-fill"></i>
+            </div>
+
+            <div>
+              <h2 id="remainingBudget">₹0</h2>
+
+              <p>Remaining</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="ri-file-list-3-fill"></i>
+            </div>
+
+            <div>
+              <h2 id="totalTransactions">0</h2>
+
+              <p>Transactions</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             Budget Progress
+        =========================================== -->
+
+        <section class="budget-card">
+          <div class="budget-header">
+            <h3>
+              <i class="ri-pie-chart-2-fill"></i>
+
+              Budget Usage
+            </h3>
+
+            <span id="budgetPercent"> 0% </span>
+          </div>
+
+          <div class="progress">
+            <div id="budgetProgress" class="progress-bar"></div>
+          </div>
+
+          <div class="budget-footer">
+            <span>
+              Spent:
+              <strong id="spentLabel"> ₹0 </strong>
+            </span>
+
+            <span>
+              Remaining:
+              <strong id="remainingLabel"> ₹0 </strong>
+            </span>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             Toolbar
+        =========================================== -->
+
+        <section class="expense-toolbar">
+          <div class="toolbar-search">
+            <i class="ri-search-line"></i>
+
+            <input
+              type="text"
+              id="searchExpense"
+              placeholder="Search expenses..."
+            />
+          </div>
+
+          <select id="filterCategory">
+            <option value="">All Categories</option>
+
+            <option>Venue</option>
+
+            <option>Decoration</option>
+
+            <option>Catering</option>
+
+            <option>Photography</option>
+
+            <option>Clothing</option>
+
+            <option>Jewellery</option>
+
+            <option>Makeup</option>
+
+            <option>Transportation</option>
+
+            <option>Entertainment</option>
+
+            <option>Miscellaneous</option>
+          </select>
+
+          <select id="filterStatus">
+            <option value="">All Status</option>
+
+            <option>Paid</option>
+
+            <option>Pending</option>
+          </select>
+
+          <select id="filterPayment">
+            <option value="">Payment Method</option>
+
+            <option>Cash</option>
+
+            <option>UPI</option>
+
+            <option>Card</option>
+
+            <option>Bank Transfer</option>
+          </select>
+        </section>
+
+        <!-- ==========================================
+             Expense Table
+        =========================================== -->
+
+        <section class="expense-table-card">
+          <div class="table-header">
+            <h3>
+              <i class="ri-bank-card-fill"></i>
+
+              Recent Expenses
+            </h3>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Date</th>
+
+                  <th>Category</th>
+
+                  <th>Vendor</th>
+
+                  <th>Description</th>
+
+                  <th>Amount</th>
+
+                  <th>Status</th>
+
+                  <th>Payment</th>
+
+                  <th>Receipt</th>
+
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="expenseTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="emptyExpenses" class="empty-expenses d-none">
+            <i class="ri-money-rupee-circle-line"></i>
+
+            <h3>No Expenses Yet</h3>
+
+            <p>Start tracking your wedding budget.</p>
+          </div>
+        </section>
+        <!-- ==========================================
+             Set Budget Modal
+        =========================================== -->
+
+        <div class="modal fade" id="budgetModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5>
+                  <i class="ri-wallet-3-fill"></i>
+
+                  Set Wedding Budget
+                </h5>
+
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div class="modal-body">
+                <label class="form-label"> Total Budget (₹) </label>
+
+                <input
+                  type="number"
+                  id="budgetInput"
+                  class="form-control"
+                  placeholder="Enter wedding budget"
+                />
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+
+                <button id="saveBudget" class="btn btn-gradient">
+                  Save Budget
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             Add Expense Modal
+        =========================================== -->
+
+        <div class="modal fade" id="expenseModal" tabindex="-1">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 id="expenseModalTitle">
+                  <i class="ri-money-rupee-circle-fill"></i>
+
+                  Add Expense
+                </h5>
+
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Category </label>
+
+                    <select id="expenseCategory" class="form-select">
+                      <option>Venue</option>
+                      <option>Decoration</option>
+                      <option>Catering</option>
+                      <option>Photography</option>
+                      <option>Clothing</option>
+                      <option>Jewellery</option>
+                      <option>Makeup</option>
+                      <option>Transportation</option>
+                      <option>Entertainment</option>
+                      <option>Miscellaneous</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Vendor </label>
+
+                    <input
+                      id="expenseVendor"
+                      class="form-control"
+                      placeholder="Vendor Name"
+                    />
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Amount (₹) </label>
+
+                    <input
+                      id="expenseAmount"
+                      type="number"
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Date </label>
+
+                    <input id="expenseDate" type="date" class="form-control" />
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Payment Method </label>
+
+                    <select id="paymentMethod" class="form-select">
+                      <option>Cash</option>
+                      <option>UPI</option>
+                      <option>Card</option>
+                      <option>Bank Transfer</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Status </label>
+
+                    <select id="expenseStatus" class="form-select">
+                      <option>Paid</option>
+                      <option>Pending</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> Description </label>
+
+                    <textarea
+                      id="expenseDescription"
+                      class="form-control"
+                      rows="3"
+                    >
+                    </textarea>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Receipt </label>
+
+                    <input
+                      id="expenseReceipt"
+                      type="file"
+                      class="form-control"
+                      accept=".jpg,.jpeg,.png,.pdf"
+                    />
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Notes </label>
+
+                    <input
+                      id="expenseNotes"
+                      class="form-control"
+                      placeholder="Optional"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+
+                <button id="saveExpense" class="btn btn-gradient">
+                  Save Expense
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS -->
+
+    <script src="../js/api.js"></script>
+
+    <script src="../js/common.js"></script>
+
+    <script src="../js/expenses.js"></script>
+  </body>
+</html>

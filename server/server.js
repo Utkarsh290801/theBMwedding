@@ -21,8 +21,13 @@ const uploadStaticPath = isServerless
 app.use("/uploads", express.static(uploadStaticPath));
 const noteRoutes = require("./routes/noteRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
+const budgetRoutes = require("./routes/budgetRoutes");
 app.use(["/api/notes", "/notes"], noteRoutes);
 app.use(["/api/gallery", "/gallery"], galleryRoutes);
+app.use("/expenses", expenseRoutes);
+
+app.use("/budget", budgetRoutes);
 app.get("/", (req, res) => {
     res.send("MB Wedding API Running");
 });

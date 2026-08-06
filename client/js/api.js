@@ -12,21 +12,29 @@ const API = {
     async request(endpoint, options = {}) {
 
         const url = this.buildUrl(endpoint);
+        const headers = { ...(options.headers || {}) };
+
+        const isFormData = typeof FormData !== "undefined" && options.body instanceof FormData;
+
+        if (!isFormData && !headers["Content-Type"] && !headers["content-type"]) {
+            headers["Content-Type"] = "application/json";
+        }
+
         const response = await fetch(
             url,
             {
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(options.headers || {})
-                },
+                headers,
                 ...options
             }
         );
 
-        const data = await response.json();
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+            ? await response.json()
+            : await response.text();
 
         if (!response.ok) {
-            throw new Error(data.message || "API Error");
+            throw new Error(typeof data === "string" ? data : (data.message || "API Error"));
         }
 
         return data;
@@ -38,11 +46,13 @@ const API = {
 
     post(endpoint, body) {
 
+        const requestBody = body instanceof FormData ? body : JSON.stringify(body);
+
         return this.request(endpoint, {
 
             method: "POST",
 
-            body: JSON.stringify(body)
+            body: requestBody
 
         });
 
@@ -50,11 +60,13 @@ const API = {
 
     put(endpoint, body) {
 
+        const requestBody = body instanceof FormData ? body : JSON.stringify(body);
+
         return this.request(endpoint, {
 
             method: "PUT",
 
-            body: JSON.stringify(body)
+            body: requestBody
 
         });
 
